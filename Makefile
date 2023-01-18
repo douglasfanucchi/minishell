@@ -4,17 +4,11 @@ FLAGS=-Wall -Werror -Wextra -c -I includes/
 LIBFT_PATH=lib/libft
 LIBFT=$(LIBFT_PATH)/libft.a
 LIBS=-L$(LIBFT_PATH) -lft
-TESTS_LIBS := $(LIBS)
-TESTS_LIBS += -lm -lrt
+TESTS_LIBS = $(LIBS) -lm -lrt
 
-FILES=minishell.c
-SRC := $(addprefix sources/, $(FILES));
+FILES=minishell.c tokens/tokenizer.c tokens/token.c
+SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
-
-TESTS_SRCS := SRC
-TESTS_SRCS := $(TESTS_SRCS:sources/minishell.c=)
-TESTS_SRCS := main.c
-TESTS_SRCS := $(addprefix tests/sources/, $(TESTS_SRCS))
 
 all: | libft
 
@@ -29,8 +23,7 @@ $(OBJS): $(SRC)
 	$(CC) $(FLAGS) $(SRC)
 
 tests:
-	@$(CC) -I tests/includes $(TESTS_SRCS) $(TESTS_LIBS) -o test.out
+	@$(CC) -g3 -Itests/includes -I./includes -I./lib/libft $(SRC:sources/minishell.c=) tests/sources/main.c $(TESTS_LIBS) -o test.out
 	@./test.out
-	@rm -rf test.out
 
 .PHONY: tests
