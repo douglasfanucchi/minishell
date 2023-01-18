@@ -22,6 +22,6 @@ typedef struct s_token {
 
 t_list	**ft_tokenizer(char *input);
 t_token	*ft_new_token(char *str, char should_expand);
-void	ft_del_token(t_token *token);
+void	ft_del_token(void *param);
 
 #endif

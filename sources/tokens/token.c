@@ -12,8 +12,11 @@
 
 #include <minishell.h>
 
-void	ft_del_token(t_token *token)
+void	ft_del_token(void *param)
 {
+	t_token	*token;
+
+	token = param;
 	free(token->original);
 	free(token->expanded);
 	free(token);
