@@ -20,6 +20,12 @@ typedef struct s_token {
 	char	*expanded;
 }	t_token;
 
+typedef struct s_tokenizer {
+	char	quote;
+	char	is_quoted;
+	char	*delimiters;
+}	t_tokenizer;
+
 t_list	**ft_tokenizer(char *input);
 t_token	*ft_new_token(char *str, char should_expand);
 void	ft_del_token(void *param);
