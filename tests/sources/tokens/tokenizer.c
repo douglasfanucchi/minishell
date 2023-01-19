@@ -163,6 +163,12 @@ MU_TEST(test_here_doc_and_append_tokens) {
 	token = (*tokens)->next->next->content;
 	mu_check(ft_strncmp(token->original, ">>", 3) == 0);
 	ft_del_tokens(tokens);
+
+	input = "'<< hello'";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->content;
+	mu_check(ft_strncmp(token->original, "'<< hello'", ft_strlen("'<< hello'") + 1) == 0);
+	ft_del_tokens(tokens);
 }
 
 MU_TEST_SUITE(test_tokenizer) {
