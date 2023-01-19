@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <stdio.h>
 
-static char is_delimiter(t_tokenizer *tokenizer, char c)
+static char	is_delimiter(t_tokenizer *tokenizer, char c)
 {
 	char	result;
 
@@ -23,22 +22,33 @@ static char is_delimiter(t_tokenizer *tokenizer, char c)
 	return (result);
 }
 
-static	char **split_tokens(char const *input, int index, t_tokenizer *tokenizer)
+static void	set_quoting_status(t_tokenizer *tokenizer, char c)
 {
-	char		**list;
-	char const	*start;
-	char const	*end;
+	char	*quotes;
 
-	start = input;
+	quotes = "\"'";
+	if (!tokenizer->is_quoted && ft_strchr(quotes, c))
+	{
+		tokenizer->is_quoted = 1;
+		tokenizer->quote = c;
+		return ;
+	}
+	if (tokenizer->is_quoted && tokenizer->quote == c)
+	{
+		tokenizer->is_quoted = 0;
+		tokenizer->quote = 0;
+	}
+}
+
+static char	**split_tokens(char *start, int index, t_tokenizer *tokenizer)
+{
+	char	**list;
+	char	*end;
+
 	while (ft_isspace(*start))
 		start++;
 	if (*start == '\0')
 		return ((char **)ft_calloc(index + 1, sizeof(char *)));
-	if (*start == '"' || *start == '\'')
-	{
-		tokenizer->quote = *start;
-		tokenizer->is_quoted = 1;
-	}
 	end = start;
 	if (is_delimiter(tokenizer, *end))
 	{
@@ -49,17 +59,12 @@ static	char **split_tokens(char const *input, int index, t_tokenizer *tokenizer)
 		list[index] = ft_substr(start, 0, end - start);
 		return (list);
 	}
-	if (tokenizer->is_quoted)
-		end++;
 	while (*end && (!is_delimiter(tokenizer, *end) || tokenizer->is_quoted))
 	{
-		if (*end == tokenizer->quote)
-			tokenizer->is_quoted = 0;
+		set_quoting_status(tokenizer, *end);
 		end++;
 	}
 	list = split_tokens(end, index + 1, tokenizer);
-	if (!list)
-		return (list);
 	list[index] = ft_substr(start, 0, end - start);
 	return (list);
 }
@@ -78,9 +83,10 @@ t_list	**ft_tokenizer(char *input)
 	t_list		**list;
 	t_token		*token;
 	t_tokenizer	tokenizer;
-	char	**tokens;
-	int	i = 0;
+	char		**tokens;
+	int			i;
 
+	i = 0;
 	list = ft_newlist();
 	tokenizer.delimiters = "\t\n <>|";
 	tokenizer.is_quoted = 0;
