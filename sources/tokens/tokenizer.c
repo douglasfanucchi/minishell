@@ -32,13 +32,19 @@ static	char **split_tokens(char const *input, int index, t_tokenizer *tokenizer)
 	start = input;
 	while (ft_isspace(*start))
 		start++;
+	if (*start == '\0')
+		return ((char **)ft_calloc(index + 1, sizeof(char *)));
 	if (*start == '"' || *start == '\'')
 	{
 		tokenizer->quote = *start;
 		tokenizer->is_quoted = 1;
 	}
-	if (*start == '\0')
-		return ((char **)ft_calloc(index + 1, sizeof(char *)));
+	if (is_delimiter(tokenizer, *start))
+	{
+		list = split_tokens(start + 1, index + 1, tokenizer);
+		list[index] = ft_substr(start, 0, 1);
+		return (list);
+	}
 	end = start;
 	if (tokenizer->is_quoted)
 		end++;

@@ -94,9 +94,42 @@ MU_TEST(test_newline_delimiter) {
 	free(tokens);
 }
 
+MU_TEST(test_other_delimiters) {
+	char	*input;
+	t_list	**tokens;
+	t_token	*token;
+
+	input = "cat  > 1";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->content;
+	mu_check(ft_strncmp(token->original, "cat", 4) == 0);
+
+	token = (*tokens)->next->content;
+	mu_check(ft_strncmp(token->original, ">", 1) == 0);
+	ft_lstclear(tokens, ft_del_token);
+	free(tokens);
+
+	input = "cat  < 1";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->next->content;
+
+	mu_check(ft_strncmp(token->original, "<", 1) == 0);
+	ft_lstclear(tokens, ft_del_token);
+	free(tokens);
+
+	input = "cat    | grep testing";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->next->content;
+
+	mu_check(ft_strncmp(token->original, "|", 1) == 0);
+	ft_lstclear(tokens, ft_del_token);
+	free(tokens);
+}
+
 MU_TEST_SUITE(test_tokenizer) {
 	MU_RUN_TEST(test_space_delimiter);
 	MU_RUN_TEST(test_space_delimiter_with_quoting);
 	MU_RUN_TEST(test_tab_delimiter);
 	MU_RUN_TEST(test_newline_delimiter);
+	MU_RUN_TEST(test_other_delimiters);
 }
