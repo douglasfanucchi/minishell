@@ -126,10 +126,50 @@ MU_TEST(test_other_delimiters) {
 	free(tokens);
 }
 
+MU_TEST(test_here_doc_and_append_tokens) {
+	char	*input;
+	t_list	**tokens;
+	t_token	*token;
+
+	input = "<< limiter";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->content;
+	mu_check(ft_strncmp(token->original, "<<", 3) == 0);
+
+	token = (*tokens)->next->content;
+	mu_check(ft_strncmp(token->original, "limiter", ft_strlen("limiter") + 1) == 0);
+	ft_del_tokens(tokens);
+
+	input = "<<limiter";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->content;
+	mu_check(ft_strncmp(token->original, "<<", 3) == 0);
+
+	token = (*tokens)->next->content;
+	mu_check(ft_strncmp(token->original, "limiter", ft_strlen("limiter") + 1) == 0);
+	ft_del_tokens(tokens);
+
+	input = "cat Makefile >> testing";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->next->next->content;
+	mu_check(ft_strncmp(token->original, ">>", 3) == 0);
+	ft_del_tokens(tokens);
+
+	input = "cat Makefile>> testing";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->next->content;
+	mu_check(ft_strncmp(token->original, "Makefile", ft_strlen("Makefile") + 1) == 0);
+
+	token = (*tokens)->next->next->content;
+	mu_check(ft_strncmp(token->original, ">>", 3) == 0);
+	ft_del_tokens(tokens);
+}
+
 MU_TEST_SUITE(test_tokenizer) {
 	MU_RUN_TEST(test_space_delimiter);
 	MU_RUN_TEST(test_space_delimiter_with_quoting);
 	MU_RUN_TEST(test_tab_delimiter);
 	MU_RUN_TEST(test_newline_delimiter);
 	MU_RUN_TEST(test_other_delimiters);
+	MU_RUN_TEST(test_here_doc_and_append_tokens);
 }

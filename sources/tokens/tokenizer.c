@@ -39,13 +39,16 @@ static	char **split_tokens(char const *input, int index, t_tokenizer *tokenizer)
 		tokenizer->quote = *start;
 		tokenizer->is_quoted = 1;
 	}
-	if (is_delimiter(tokenizer, *start))
+	end = start;
+	if (is_delimiter(tokenizer, *end))
 	{
-		list = split_tokens(start + 1, index + 1, tokenizer);
-		list[index] = ft_substr(start, 0, 1);
+		end++;
+		if (start[0] == start[1])
+			end++;
+		list = split_tokens(end, index + 1, tokenizer);
+		list[index] = ft_substr(start, 0, end - start);
 		return (list);
 	}
-	end = start;
 	if (tokenizer->is_quoted)
 		end++;
 	while (*end && (!is_delimiter(tokenizer, *end) || tokenizer->is_quoted))
@@ -59,6 +62,15 @@ static	char **split_tokens(char const *input, int index, t_tokenizer *tokenizer)
 		return (list);
 	list[index] = ft_substr(start, 0, end - start);
 	return (list);
+}
+
+void	ft_del_tokens(void *param)
+{
+	t_list	**tokenizer;
+
+	tokenizer = param;
+	ft_lstclear(tokenizer, ft_del_token);
+	free(tokenizer);
 }
 
 t_list	**ft_tokenizer(char *input)
