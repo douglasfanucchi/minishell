@@ -164,6 +164,14 @@ MU_TEST(test_here_doc_and_append_tokens) {
 	mu_check(ft_strncmp(token->original, ">>", 3) == 0);
 	ft_del_tokens(tokens);
 
+	input = ">>>>";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->content;
+	mu_check(ft_strncmp(token->original, ">>", 3) == 0);
+	token = (*tokens)->next->content;
+	mu_check(ft_strncmp(token->original, ">>", 3) == 0);
+	ft_del_tokens(tokens);
+
 	input = "'<< hello'";
 	tokens = ft_tokenizer(input);
 	token = (*tokens)->content;
