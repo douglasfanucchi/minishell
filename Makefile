@@ -6,7 +6,7 @@ LIBFT=$(LIBFT_PATH)/libft.a
 LIBS=-L$(LIBFT_PATH) -lft
 TESTS_LIBS = $(LIBS) -lm -lrt
 
-FILES=minishell.c tokens/tokenizer.c tokens/token.c
+FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c
 SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
 

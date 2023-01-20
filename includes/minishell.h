@@ -30,5 +30,7 @@ t_list	**ft_tokenizer(char *input);
 t_token	*ft_new_token(char *str, char should_expand);
 void	ft_del_token(void *param);
 void	ft_del_tokens(void *param);
+char	ft_should_append_redirect_token(char *str, char delimiter);
+void	ft_append_redirect_token(char **end);
 
 #endif

@@ -60,10 +60,9 @@ static char	**split_tokens(char *start, int index, t_tokenizer *tokenizer)
 		return (list);
 	}
 	while (*end && (!is_delimiter(tokenizer, *end) || tokenizer->is_quoted))
-	{
-		set_quoting_status(tokenizer, *end);
-		end++;
-	}
+		set_quoting_status(tokenizer, *(end++));
+	if (ft_should_append_redirect_token(ft_substr(start, 0, end - start), *end))
+		ft_append_redirect_token(&end);
 	list = split_tokens(end, index + 1, tokenizer);
 	list[index] = ft_substr(start, 0, end - start);
 	return (list);
