@@ -82,5 +82,6 @@ char	ft_isspace(char c);
 void	ft_putstr(char *str);
 char	*get_next_line(int fd);
 t_list	**ft_newlist(void);
+char	ft_is_number(char *str);
 
 #endif
