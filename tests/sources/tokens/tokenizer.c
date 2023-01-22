@@ -207,6 +207,11 @@ MU_TEST(test_redirection_token_with_specified_fd) {
 	token = (*tokens)->next->next->content;
 	mu_check(ft_strncmp(token->original, "2>>", 4) == 0);
 	ft_del_tokens(tokens);
+
+	tokens = ft_tokenizer("");
+	token = (*tokens)->content;
+	mu_check(*token->original == '\n');
+	ft_del_tokens(tokens);
 }
 
 MU_TEST_SUITE(test_tokenizer) {

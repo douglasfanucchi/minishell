@@ -98,6 +98,7 @@ t_list	**ft_tokenizer(char *input)
 		free(tokens[i]);
 		i++;
 	}
+	ft_lstadd_back(list, ft_lstnew(ft_new_token("\n", 0)));
 	free(tokens);
 	return (list);
 }
