@@ -1,14 +1,16 @@
 NAME=minishell
 CC=cc
-FLAGS=-Wall -Werror -Wextra -c -I includes/
+FLAGS=-Wall -Werror -Wextra -c -I includes/ -I lib/libft
 LIBFT_PATH=lib/libft
 LIBFT=$(LIBFT_PATH)/libft.a
-LIBS=-L$(LIBFT_PATH) -lft
+LIBS=-L$(LIBFT_PATH) -lft -lreadline
 TESTS_LIBS = $(LIBS) -lm -lrt
 
-FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c
+FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c \
+      analyser/redirection.c
 SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
+OBJS := $(OBJS:tokens/%=%)
 
 all: | libft
 
