@@ -38,5 +38,6 @@ char		ft_should_append_redirect_token(char *str, char delimiter);
 void		ft_append_redirect_token(char **end);
 t_analyser	*get_redirection_analyser(void);
 t_analyser	*get_pipe_analyser(void);
+t_analyser	*get_quoted_analyser(void);
 
 #endif

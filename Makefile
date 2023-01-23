@@ -7,7 +7,7 @@ LIBS=-L$(LIBFT_PATH) -lft -lreadline
 TESTS_LIBS = $(LIBS) -lm -lrt
 
 FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c \
-      analyser/redirection.c analyser/pipe.c
+      analyser/redirection.c analyser/pipe.c analyser/quoted.c
 SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
 OBJS := $(OBJS:tokens/%=%)
