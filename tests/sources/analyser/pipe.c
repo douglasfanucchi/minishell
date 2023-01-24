@@ -16,6 +16,21 @@ MU_TEST(test_invalid_pipe_tokens) {
 	result = analyser->analyse(*tokens);
 	mu_check(result == token->original);
 	ft_del_tokens(tokens);
+
+	input = "| testing";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->content;
+	result = analyser->analyse(*tokens);
+	mu_check(result == token->original);
+	ft_del_tokens(tokens);
+
+	input = "testing |";
+	tokens = ft_tokenizer(input);
+	token = (*tokens)->next->content;
+	result = analyser->analyse((*tokens)->next);
+	mu_check(result == token->original);
+	ft_del_tokens(tokens);
+
 	free(analyser);
 }
 

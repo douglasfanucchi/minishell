@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:38:55 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/01/23 09:38:55 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/01/24 12:17:57 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*analyse(t_list *node)
 
 	token = node->content;
 	next_token = node->next->content;
-	if (next_token->original[0] == '\n')
+	if (node->prev == NULL || next_token->original[0] == '\n')
 		return (token->original);
 	return (NULL);
 }
