@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 22:31:01 by dfanucch          #+#    #+#             */
-/*   Updated: 2022/10/07 00:30:19 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/01/24 09:58:53 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum e_state	t_state;
 struct s_list {
 	void			*content;
 	struct s_list	*next;
+	struct s_list	*prev;
 };
 
 typedef struct s_list	t_list;
