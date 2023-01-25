@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-static char	is_redirection_token(char *token)
+char	ft_is_redirection_token(char *token)
 {
 	char	result;
 	size_t	i;
@@ -32,7 +32,7 @@ static char	*analyse(t_list *node)
 
 	token = node->content;
 	next_token = node->next->content;
-	if (is_redirection_token(next_token->original)
+	if (ft_is_redirection_token(next_token->original)
 		|| next_token->original[0] == '|' || next_token->original[0] == '\n')
 		return (next_token->original);
 	return (NULL);

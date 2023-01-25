@@ -39,5 +39,7 @@ void		ft_append_redirect_token(char **end);
 t_analyser	*get_redirection_analyser(void);
 t_analyser	*get_pipe_analyser(void);
 t_analyser	*get_quoted_analyser(void);
+char		*ft_analyse_token(t_list *node);
+char		ft_is_redirection_token(char *token);
 
 #endif
