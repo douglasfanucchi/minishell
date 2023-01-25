@@ -12,19 +12,6 @@
 
 #include <minishell.h>
 
-char	ft_is_redirection_token(char *token)
-{
-	char	result;
-	size_t	i;
-
-	if (token[0] == '\'' || token[0] == '"')
-		return (0);
-	i = 0;
-	while (token[i] && token[i] != '<' && token[i] != '>')
-		i++;
-	return (ft_strlen(token) != i);
-}
-
 static char	*analyse(t_list *node)
 {
 	t_token	*token;
