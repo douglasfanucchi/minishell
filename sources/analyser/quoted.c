@@ -28,8 +28,8 @@ static char	*analyse(t_list *node)
 	{
 		if (*token_content == unclosed_quote)
 			unclosed_quote = 0;
-		else if (!unclosed_quote && *token_content == '\''
-			|| *token_content == '"')
+		else if (!unclosed_quote && (*token_content == '\''
+				|| *token_content == '"'))
 			unclosed_quote = *token_content;
 		token_content++;
 	}

@@ -14,7 +14,6 @@
 
 char	ft_is_redirection_token(char *token)
 {
-	char	result;
 	size_t	i;
 
 	if (token[0] == '\'' || token[0] == '"')
