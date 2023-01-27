@@ -11,6 +11,7 @@ FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c \
 SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
 OBJS := $(OBJS:tokens/%=%)
+OBJS := $(OBJS:analyser/%=%)
 
 all: | libft
 
