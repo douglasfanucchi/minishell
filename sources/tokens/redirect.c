@@ -29,7 +29,8 @@ char	ft_should_append_redirect_token(char *str, char delimiter)
 	char	result;
 
 	result = 0;
-	if ((delimiter == '<' || delimiter == '>') && ft_is_number(str))
+	if ((delimiter == '<' || delimiter == '>')
+		&& ft_is_number(str) && ft_atoi(str) >= 0)
 		result = 1;
 	free(str);
 	return (result);

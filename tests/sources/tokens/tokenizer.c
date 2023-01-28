@@ -222,6 +222,15 @@ MU_TEST(test_tokens_should_contain_only_newline) {
 	free(tokens);
 }
 
+MU_TEST(test_negative_fd_shouldnt_be_at_redirect_token) {
+	t_list	**tokens = ft_tokenizer("-1> Makefile");
+	t_token	*token = (*tokens)->content;
+	mu_check(ft_strncmp(token->original, "-1", 3) == 0);
+
+	ft_lstclear(tokens, ft_del_token);
+	free(tokens);
+}
+
 MU_TEST_SUITE(test_tokenizer) {
 	MU_RUN_TEST(test_space_delimiter);
 	MU_RUN_TEST(test_space_delimiter_with_quoting);
@@ -231,4 +240,5 @@ MU_TEST_SUITE(test_tokenizer) {
 	MU_RUN_TEST(test_here_doc_and_append_tokens);
 	MU_RUN_TEST(test_redirection_token_with_specified_fd);
 	MU_RUN_TEST(test_tokens_should_contain_only_newline);
+	MU_RUN_TEST(test_negative_fd_shouldnt_be_at_redirect_token);
 }
