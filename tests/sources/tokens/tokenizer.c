@@ -214,6 +214,14 @@ MU_TEST(test_redirection_token_with_specified_fd) {
 	ft_del_tokens(tokens);
 }
 
+MU_TEST(test_tokens_should_contain_only_newline) {
+	t_list	**tokens = ft_tokenizer("               ");
+	t_token	*token = (*tokens)->content;
+	mu_check(token->original[0] == '\n');
+	ft_lstclear(tokens, ft_del_token);
+	free(tokens);
+}
+
 MU_TEST_SUITE(test_tokenizer) {
 	MU_RUN_TEST(test_space_delimiter);
 	MU_RUN_TEST(test_space_delimiter_with_quoting);
@@ -222,4 +230,5 @@ MU_TEST_SUITE(test_tokenizer) {
 	MU_RUN_TEST(test_other_delimiters);
 	MU_RUN_TEST(test_here_doc_and_append_tokens);
 	MU_RUN_TEST(test_redirection_token_with_specified_fd);
+	MU_RUN_TEST(test_tokens_should_contain_only_newline);
 }
