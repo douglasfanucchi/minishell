@@ -99,6 +99,7 @@ void	ft_del_command(void *cmd)
 		free(*(argv++));
 	free(command->argv);
 	ft_lstclear(command->redirects, free);
+	free(command->redirects);
 	free(command);
 }
 
