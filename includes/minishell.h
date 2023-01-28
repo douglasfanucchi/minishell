@@ -44,7 +44,13 @@ typedef struct s_command {
 	char	bash_status;
 	int		pipe[2];
 	char	is_builtin;
+	t_list	**redirects;
 }	t_command;
+
+typedef struct s_redirect {
+	int	old_fd;
+	int	new_fd;
+}	t_redirect;
 
 t_list		**ft_tokenizer(char *input);
 t_token		*ft_new_token(char *str, char should_expand);
