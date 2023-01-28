@@ -36,8 +36,6 @@ typedef struct s_analyser {
 }	t_analyser;
 
 typedef struct s_command {
-	int		input_fd;
-	int		output_fd;
 	char	*pathname;
 	char	*filename;
 	char	**envp;

@@ -112,8 +112,6 @@ t_command	*ft_new_command(t_list **tokens, char **envp, char **paths)
 	if (!command->is_builtin)
 		command->pathname = get_pathname(command->filename, paths);
 	command->argv = get_command_args(tokens);
-	command->input_fd = -1;
-	command->output_fd = -1;
 	command->envp = envp;
 	command->bash_status = 1;
 	command->pid = 0;
