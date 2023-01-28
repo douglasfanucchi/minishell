@@ -13,6 +13,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <libft.h>
+# include <stdio.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef struct s_token {
 	char	should_expand;
@@ -30,6 +35,19 @@ typedef struct s_analyser {
 	char	*(*analyse)(t_list *);
 }	t_analyser;
 
+typedef struct s_command {
+	int		input_fd;
+	int		output_fd;
+	char	*pathname;
+	char	*filename;
+	char	**envp;
+	char	**argv;
+	pid_t	pid;
+	char	bash_status;
+	int		pipe[2];
+	char	is_builtin;
+}	t_command;
+
 t_list		**ft_tokenizer(char *input);
 t_token		*ft_new_token(char *str, char should_expand);
 void		ft_del_token(void *param);
@@ -41,5 +59,7 @@ t_analyser	*get_pipe_analyser(void);
 t_analyser	*get_quoted_analyser(void);
 char		*ft_analyse_token(t_list *node);
 char		ft_is_redirection_token(char *token);
+t_command	*ft_new_command(t_list **tokens, char **envp, char **paths);
+void		ft_del_command(void *cmd);
 
 #endif
