@@ -19,6 +19,7 @@ all: | libft
 
 libft:
 	make -C $(LIBFT_PATH)
+	make bonus -C $(LIBFT_PATH)
 	make $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
@@ -26,6 +27,14 @@ $(NAME): $(OBJS) $(LIBFT)
 
 $(OBJS): $(SRC)
 	$(CC) $(FLAGS) $(SRC)
+
+clean:
+	@make clean -C lib/libft
+	@rm -f $(OBJS) test.out
+
+fclean: clean
+	make fclean -C lib/libft
+	rm -f $(NAME)
 
 tests:
 	@$(CC) -g3 -Itests/includes -I./includes -I./lib/libft $(SRC:sources/minishell.c=) tests/sources/main.c $(TESTS_LIBS) -o test.out

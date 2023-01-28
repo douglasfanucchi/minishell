@@ -34,6 +34,13 @@ MU_TEST(test_input_redirection_analyser) {
 	mu_check(result == next_token->original);
 	ft_del_tokens(tokens);
 
+	input = "echo 'hi' >";
+	tokens = ft_tokenizer(input);
+	result = analyser->analyse((*tokens)->next->next);
+	mu_check(result != NULL);
+	mu_check(*result == '\n');
+	ft_del_tokens(tokens);
+
 	free(analyser);
 }
 
