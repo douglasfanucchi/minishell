@@ -36,6 +36,5 @@ t_redirect	*ft_new_redirect(t_list *node)
 		free(str_number);
 	}
 	redirect->new_fd = fd;
-	redirect->old_fd = ft_get_redirect_file_descriptor(node);
 	return (redirect);
 }
