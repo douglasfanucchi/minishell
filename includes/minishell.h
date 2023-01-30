@@ -65,5 +65,7 @@ char		*ft_analyse_token(t_list *node);
 char		ft_is_redirection_token(char *token);
 t_command	*ft_new_command(t_list **tokens, char **envp, char **paths);
 void		ft_del_command(void *cmd);
+int			ft_get_redirect_file_descriptor(t_list *node);
+t_redirect	*ft_new_redirect(t_list *node);
 
 #endif
