@@ -94,7 +94,6 @@ int	ft_get_redirect_file_descriptor(t_list *node)
 	t_token	*token;
 	char	*redirect;
 	char	*filename;
-	int		i;
 
 	if (!node->next)
 		return (-1);
@@ -112,6 +111,5 @@ int	ft_get_redirect_file_descriptor(t_list *node)
 		return (create_file(filename, O_CREAT | O_APPEND | O_WRONLY, 0644));
 	if (ft_strncmp(redirect, "<", 2) == 0)
 		return (read_file(filename, O_RDONLY));
-	i = 1;
 	return (create_here_doc(here_doc_filename(), token->original));
 }
