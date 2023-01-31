@@ -93,12 +93,12 @@ t_list	**ft_tokenizer(char *input)
 	tokens = split_tokens(input, 0, &tokenizer);
 	while (tokens[i])
 	{
-		token = ft_new_token(tokens[i], 0);
+		token = ft_new_token(tokens[i]);
 		ft_lstadd_back(list, ft_lstnew(token));
 		free(tokens[i]);
 		i++;
 	}
-	ft_lstadd_back(list, ft_lstnew(ft_new_token("\n", 0)));
+	ft_lstadd_back(list, ft_lstnew(ft_new_token("\n")));
 	free(tokens);
 	return (list);
 }

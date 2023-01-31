@@ -8,10 +8,10 @@ MU_TEST(test_command_filename_should_ignore_redirect_tokens) {
 	t_list		**tokens = ft_newlist();
 	t_command	*command;
 
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("<<", 0)));
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("limiter", 0)));
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("cat", 0)));
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n", 0)));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("<<")));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("limiter")));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("cat")));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
 
 	command = ft_new_command(tokens, (char **)envp, (char **)paths);
 	mu_check(command->filename != NULL);
@@ -24,7 +24,7 @@ MU_TEST(test_command_filename_should_be_empty) {
 	t_list		**tokens = ft_newlist();
 	t_command	*command;
 
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n", 0)));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
 	command = ft_new_command(tokens, (char **)envp, (char **)paths);
 	mu_check(command->filename != NULL);
 	mu_check(command->filename[0] == '\0');
@@ -33,9 +33,9 @@ MU_TEST(test_command_filename_should_be_empty) {
 
 	tokens = ft_newlist();
 
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("<<", 0)));
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("filename", 0)));
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n", 0)));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("<<")));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("filename")));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
 
 	command = ft_new_command(tokens, (char **)envp, (char **)paths);
 	mu_check(command->filename != NULL);
@@ -48,8 +48,8 @@ MU_TEST(test_command_filename_should_be_first_token) {
 	t_list		**tokens = ft_newlist();
 	t_command	*command;
 
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("cat", 0)));
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n", 0)));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("cat")));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
 	command = ft_new_command(tokens, (char **)envp, (char **)paths);
 	mu_check(command->filename != NULL);
 	mu_check(ft_strncmp(command->filename, "cat", 4) == 0);
@@ -59,9 +59,9 @@ MU_TEST(test_command_filename_should_be_first_token) {
 
 MU_TEST(test_command_args_should_not_have_newline) {
 	t_list **tokens = ft_newlist();
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("cat", 0)));
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("Makefile", 0)));
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n", 0)));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("cat")));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("Makefile")));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
 
 	t_command *command = ft_new_command(tokens, (char **)envp, (char **)paths);
 	char **args = command->argv;
@@ -77,9 +77,9 @@ MU_TEST(test_command_args_should_not_have_newline) {
 
 MU_TEST(test_command_args_should_have_same_values_as_token) {
 	t_list	**tokens = ft_newlist();
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("cat", 0)));
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("Makefie", 0)));
-	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n", 0)));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("cat")));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("Makefie")));
+	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
 	t_list	*node = *tokens;
 	t_command *command = ft_new_command(tokens, (char **)envp, (char **)paths);
 	char **argv = command->argv;

@@ -54,7 +54,7 @@ typedef struct s_redirect {
 }	t_redirect;
 
 t_list		**ft_tokenizer(char *input);
-t_token		*ft_new_token(char *str, char should_expand);
+t_token		*ft_new_token(char *str);
 void		ft_del_token(void *param);
 void		ft_del_tokens(void *param);
 char		ft_should_append_redirect_token(char *str, char delimiter);
@@ -70,6 +70,6 @@ int			ft_get_redirect_file_descriptor(t_list *node);
 t_redirect	*ft_new_redirect(t_list *node);
 char		**ft_find_arg(char **argv, char *arg);
 void		ft_remove_arg(char **argv, char *arg);
-void	ft_set_command_redirects(t_command *command);
+void		ft_set_command_redirects(t_command *command);
 
 #endif

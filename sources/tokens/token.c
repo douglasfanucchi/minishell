@@ -22,12 +22,25 @@ void	ft_del_token(void *param)
 	free(token);
 }
 
-t_token	*ft_new_token(char *str, char should_expand)
+static char	should_expand(char *token)
+{
+	if (*token == '\'')
+		return (0);
+	while (*token)
+	{
+		if (*token == '$')
+			return (1);
+		token++;
+	}
+	return (0);
+}
+
+t_token	*ft_new_token(char *str)
 {
 	t_token	*token;
 
 	token = malloc(sizeof(t_token));
-	token->should_expand = should_expand;
+	token->should_expand = should_expand(str);
 	token->original = ft_strdup(str);
 	token->expanded = ft_strdup(token->original);
 	return (token);
