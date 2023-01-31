@@ -26,12 +26,8 @@ static char	should_expand(char *token)
 {
 	if (*token == '\'')
 		return (0);
-	while (*token)
-	{
-		if (*token == '$')
-			return (1);
-		token++;
-	}
+	if (ft_strchr(token, '$'))
+		return (1);
 	return (0);
 }
 
