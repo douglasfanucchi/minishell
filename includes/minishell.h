@@ -70,5 +70,6 @@ int			ft_get_redirect_file_descriptor(t_list *node);
 t_redirect	*ft_new_redirect(t_list *node);
 char		**ft_find_arg(char **argv, char *arg);
 void		ft_remove_arg(char **argv, char *arg);
+void	ft_set_command_redirects(t_command *command);
 
 #endif
