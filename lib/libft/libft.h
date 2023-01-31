@@ -84,5 +84,6 @@ void	ft_putstr(char *str);
 char	*get_next_line(int fd);
 t_list	**ft_newlist(void);
 char	ft_is_number(char *str);
+void	ft_lstdel(t_list *node, void (*del)(void*));
 
 #endif

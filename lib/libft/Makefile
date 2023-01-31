@@ -39,6 +39,7 @@ FUNCS = ft_isalpha \
 		get_next_line \
 		ft_newlist \
 		ft_is_number \
+		ft_lstdel \
 
 SRCS = $(addsuffix .c, $(FUNCS))
 OBJECTS = $(addsuffix .o, $(FUNCS))
