@@ -17,9 +17,7 @@ MU_TEST(test_command_filename_should_ignore_redirect_tokens) {
 	mu_check(command->filename != NULL);
 	mu_check(ft_strncmp(command->filename, "cat", 4) == 0);
 
-	ft_lstclear(tokens, ft_del_token);
 	ft_del_command(command);
-	free(tokens);
 }
 
 MU_TEST(test_command_filename_should_be_empty) {
@@ -31,9 +29,7 @@ MU_TEST(test_command_filename_should_be_empty) {
 	mu_check(command->filename != NULL);
 	mu_check(command->filename[0] == '\0');
 
-	ft_lstclear(tokens, ft_del_token);
 	ft_del_command(command);
-	free(tokens);
 
 	tokens = ft_newlist();
 
@@ -45,9 +41,7 @@ MU_TEST(test_command_filename_should_be_empty) {
 	mu_check(command->filename != NULL);
 	mu_check(command->filename[0] == '\0');
 
-	ft_lstclear(tokens, ft_del_token);
 	ft_del_command(command);
-	free(tokens);
 }
 
 MU_TEST(test_command_filename_should_be_first_token) {
@@ -60,9 +54,7 @@ MU_TEST(test_command_filename_should_be_first_token) {
 	mu_check(command->filename != NULL);
 	mu_check(ft_strncmp(command->filename, "cat", 4) == 0);
 
-	ft_lstclear(tokens, ft_del_token);
 	ft_del_command(command);
-	free(tokens);
 }
 
 MU_TEST(test_command_args_should_not_have_newline) {
@@ -80,9 +72,7 @@ MU_TEST(test_command_args_should_not_have_newline) {
 	mu_check(ft_strncmp(*args, "\n", 2) != 0);
 	mu_check(ft_strncmp(*args, "Makefile", ft_strlen("Makefile") + 1) == 0);
 
-	ft_lstclear(tokens, ft_del_token);
 	ft_del_command(command);
-	free(tokens);
 }
 
 MU_TEST(test_command_args_should_have_same_values_as_token) {
@@ -102,9 +92,7 @@ MU_TEST(test_command_args_should_have_same_values_as_token) {
 		node = node->next;
 	}
 
-	ft_lstclear(tokens, ft_del_token);
 	ft_del_command(command);
-	free(tokens);
 }
 
 MU_TEST_SUITE(test_new_command) {

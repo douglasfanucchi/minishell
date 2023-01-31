@@ -44,6 +44,7 @@ typedef struct s_command {
 	char	bash_status;
 	int		pipe[2];
 	char	is_builtin;
+	t_list	**tokens;
 	t_list	**redirects;
 }	t_command;
 
