@@ -12,6 +12,12 @@
 
 #include <minishell.h>
 
+static void	del_redirection_nodes(t_list *node)
+{
+	ft_lstdel(node, ft_del_token);
+	ft_lstdel(node, ft_del_token);
+}
+
 void	ft_set_command_redirects(t_command *command)
 {
 	t_list		**tokens;
@@ -37,6 +43,6 @@ void	ft_set_command_redirects(t_command *command)
 		ft_lstadd_back(command->redirects, ft_lstnew(redirect));
 		ft_remove_arg(argv, *argv);
 		ft_remove_arg(argv, *argv);
-		node = node->next->next;
+		del_redirection_nodes(node);
 	}
 }
