@@ -9,6 +9,7 @@
 #include "analyser/analyse.c"
 #include "commands/new_command.c"
 #include "redirects/new_redirect.c"
+#include "utils/args.c"
 
 int	main(int argc, char **argv)
 {
@@ -20,6 +21,7 @@ int	main(int argc, char **argv)
 	MU_RUN_SUITE(test_analyse_token);
 	MU_RUN_SUITE(test_new_command);
 	MU_RUN_SUITE(test_redirections);
+	MU_RUN_SUITE(test_utils_args);
 	MU_REPORT();
 	return (MU_EXIT_CODE);
 }

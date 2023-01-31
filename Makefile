@@ -8,12 +8,14 @@ TESTS_LIBS = $(LIBS) -lm -lrt
 
 FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c \
       analyser/redirection.c analyser/pipe.c analyser/quoted.c analyser/analyse.c \
-      commands/new_command.c redirects/redirect_file_descriptor.c redirects/new_redirect.c
+      commands/new_command.c redirects/redirect_file_descriptor.c redirects/new_redirect.c \
+	  utils/args.c
 SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
 OBJS := $(OBJS:tokens/%=%)
 OBJS := $(OBJS:analyser/%=%)
 OBJS := $(OBJS:redirects/%=%)
+OBJS := $(OBJS:utils/%=%)
 OBJS := $(OBJS:commands/%=%)
 
 all: | libft
