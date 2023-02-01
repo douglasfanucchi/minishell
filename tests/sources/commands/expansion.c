@@ -24,6 +24,7 @@ MU_TEST(test_token_should_not_expands) {
 MU_TEST(test_token_should_expand_to_empty_value) {
 	t_list	**tokens = ft_tokenizer("cat $filename");
 	t_command	*command = ft_new_command(tokens, env, path);
+	char	*assert_str;
 
 	ft_expand_args(command);
 	mu_check(ft_strncmp(command->argv[1], "", 1) == 0);
@@ -35,15 +36,38 @@ MU_TEST(test_token_should_expand_to_empty_value) {
 	ft_expand_args(command);
 	mu_check(ft_strncmp(command->argv[1], "\"\"", 3) == 0);
 	ft_del_command(command);
+
+	tokens = ft_tokenizer("echo \"filename $fillename is being used\"");
+	command = ft_new_command(tokens, env, path);
+	assert_str = "\"filename  is being used\"";
+	
+	ft_expand_args(command);
+	mu_check(ft_strncmp(command->argv[1], assert_str, ft_strlen(assert_str) + 1) == 0);
+	ft_del_command(command);
 }
 
 MU_TEST(test_token_should_expand_to_path_value) {
 	t_list	**tokens = ft_tokenizer("echo \"$PATH\"");
 	t_command	*command = ft_new_command(tokens, env, path);
+	char *assert_str;
 
 	ft_expand_args(command);
 	mu_check(ft_strncmp(command->argv[1], "\"/usr/bin:/usr/sbin\"", ft_strlen("\"/usr/bin:/usr/sbin\"") + 1) == 0);
+	ft_del_command(command);
 
+	tokens = ft_tokenizer("echo $PATH");
+	command = ft_new_command(tokens, env, path);
+
+	ft_expand_args(command);
+	mu_check(ft_strncmp(command->argv[1], "/usr/bin:/usr/sbin", ft_strlen("/usr/bin:/usr/sbin") + 1) == 0);
+	ft_del_command(command);
+
+	tokens = ft_tokenizer("echo \"the shell $SHELL is what im using\"");
+	assert_str = "\"the shell minishell is what im using\"";
+	command = ft_new_command(tokens, env, path);
+
+	ft_expand_args(command);
+	mu_check(ft_strncmp(command->argv[1], assert_str, ft_strlen(assert_str) + 1) == 0);
 	ft_del_command(command);
 }
 
