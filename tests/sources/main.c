@@ -8,11 +8,16 @@
 #include "analyser/quoted.c"
 #include "analyser/analyse.c"
 #include "commands/new_command.c"
+#include "commands/expansion.c"
 #include "redirects/new_redirect.c"
 #include "utils/args.c"
 
+char	g_bash_status;
+
 int	main(int argc, char **argv)
 {
+	g_bash_status = 0;
+
 	MU_RUN_SUITE(test_tokens);
 	MU_RUN_SUITE(test_tokenizer);
 	MU_RUN_SUITE(test_redirections_analyser);
@@ -22,6 +27,7 @@ int	main(int argc, char **argv)
 	MU_RUN_SUITE(test_new_command);
 	MU_RUN_SUITE(test_redirections);
 	MU_RUN_SUITE(test_utils_args);
+	MU_RUN_SUITE(test_token_expansion);
 	MU_REPORT();
 	return (MU_EXIT_CODE);
 }

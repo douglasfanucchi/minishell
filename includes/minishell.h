@@ -19,6 +19,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+extern char	g_bash_status;
+
 typedef struct s_token {
 	char	should_expand;
 	char	*original;
@@ -71,5 +73,6 @@ t_redirect	*ft_new_redirect(t_list *node);
 char		**ft_find_arg(char **argv, char *arg);
 void		ft_remove_arg(char **argv, char *arg);
 void		ft_set_command_redirects(t_command *command);
+void		ft_expand_args(t_command *command);
 
 #endif

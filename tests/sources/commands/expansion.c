@@ -1,0 +1,66 @@
+#include <minunit.h>
+#include <minishell.h>
+
+char	**path;
+char	**env;
+
+MU_TEST(test_token_should_not_expands) {
+	char		*input = "cat Makefile | grep '$name'";
+	char		**not_expanded = ft_split(input, ' ');
+	t_command	*command = ft_new_command(ft_tokenizer(input), env, path);
+
+	ft_expand_args(command);
+
+	int i = -1;
+	while (command->argv[++i])
+		mu_check(ft_strncmp(not_expanded[i], command->argv[i], ft_strlen(not_expanded[i]) + 1) == 0);
+	ft_del_command(command);
+	i = 0;
+	while (not_expanded[i])
+		free(not_expanded[i++]);
+	free(not_expanded);
+}
+
+MU_TEST(test_token_should_expand_to_empty_value) {
+	t_list	**tokens = ft_tokenizer("cat $filename");
+	t_command	*command = ft_new_command(tokens, env, path);
+
+	ft_expand_args(command);
+	mu_check(ft_strncmp(command->argv[1], "", 1) == 0);
+	ft_del_command(command);
+
+	tokens = ft_tokenizer("cat \"$filename\"");
+	command = ft_new_command(tokens, env, path);
+
+	ft_expand_args(command);
+	mu_check(ft_strncmp(command->argv[1], "\"\"", 3) == 0);
+	ft_del_command(command);
+}
+
+MU_TEST(test_token_should_expand_to_path_value) {
+	t_list	**tokens = ft_tokenizer("echo \"$PATH\"");
+	t_command	*command = ft_new_command(tokens, env, path);
+
+	ft_expand_args(command);
+	mu_check(ft_strncmp(command->argv[1], "\"/usr/bin:/usr/sbin\"", ft_strlen("\"/usr/bin:/usr/sbin\"") + 1) == 0);
+
+	ft_del_command(command);
+}
+
+MU_TEST_SUITE(test_token_expansion) {
+	env = ft_split("PATH=/usr/bin:/usr/sbin\nSHELL=minishell", '\n');
+	path = ft_split("/usr/bin:/usr/sbin", ':');
+	
+	MU_RUN_TEST(test_token_should_not_expands);
+	MU_RUN_TEST(test_token_should_expand_to_empty_value);
+	MU_RUN_TEST(test_token_should_expand_to_path_value);
+
+	int	i = 0;
+	while (env[i])
+		free(env[i++]);
+	free(env);
+	i = 0;
+	while (path[i])
+		free(path[i++]);
+	free(path);
+}
