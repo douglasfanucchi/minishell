@@ -26,6 +26,8 @@ static char	*get_var_value(char *var, char **envp)
 
 	var_equals = ft_strjoin(var, "=");
 	var_len = ft_strlen(var_equals);
+	if (ft_strncmp(var, "?", 2) == 0)
+		return (ft_itoa(g_bash_status));
 	while (*envp)
 	{
 		if (ft_strncmp(*envp, var_equals, var_len) == 0)

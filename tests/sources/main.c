@@ -16,7 +16,7 @@ char	g_bash_status;
 
 int	main(int argc, char **argv)
 {
-	g_bash_status = 0;
+	g_bash_status = 127;
 
 	MU_RUN_SUITE(test_tokens);
 	MU_RUN_SUITE(test_tokenizer);

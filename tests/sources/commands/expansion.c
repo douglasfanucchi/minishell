@@ -71,6 +71,22 @@ MU_TEST(test_token_should_expand_to_path_value) {
 	ft_del_command(command);
 }
 
+MU_TEST(test_token_should_expand_to_bash_status_code) {
+	t_list	**tokens = ft_tokenizer("echo $?");
+	t_command	*command = ft_new_command(tokens, env, path);
+
+	ft_expand_args(command);
+	mu_check(ft_strncmp(command->argv[1], "127", 4) == 0);
+	ft_del_command(command);
+
+	tokens = ft_tokenizer("echo \"$?\"");
+	command = ft_new_command(tokens, env, path);
+
+	ft_expand_args(command);
+	mu_check(ft_strncmp(command->argv[1], "\"127\"", 6) == 0);
+	ft_del_command(command);
+}
+
 MU_TEST_SUITE(test_token_expansion) {
 	env = ft_split("PATH=/usr/bin:/usr/sbin\nSHELL=minishell", '\n');
 	path = ft_split("/usr/bin:/usr/sbin", ':');
@@ -78,6 +94,7 @@ MU_TEST_SUITE(test_token_expansion) {
 	MU_RUN_TEST(test_token_should_not_expands);
 	MU_RUN_TEST(test_token_should_expand_to_empty_value);
 	MU_RUN_TEST(test_token_should_expand_to_path_value);
+	MU_RUN_TEST(test_token_should_expand_to_bash_status_code);
 
 	int	i = 0;
 	while (env[i])
