@@ -24,19 +24,22 @@ static char	*get_var_value(char *var, char **envp)
 	char	*var_equals;
 	size_t	var_len;
 
+	if (ft_strncmp(var, "$?", 3) == 0)
+		return (ft_itoa(g_bash_status));
+	var = ft_substr(var, 1, ft_strlen(var) - 1);
 	var_equals = ft_strjoin(var, "=");
 	var_len = ft_strlen(var_equals);
-	if (ft_strncmp(var, "?", 2) == 0)
-		return (ft_itoa(g_bash_status));
 	while (*envp)
 	{
 		if (ft_strncmp(*envp, var_equals, var_len) == 0)
 		{
 			free(var_equals);
+			free(var);
 			return (ft_substr(*envp, var_len, ft_strlen(*envp) - var_len + 1));
 		}
 		envp++;
 	}
+	free(var);
 	free(var_equals);
 	return (NULL);
 }
@@ -45,21 +48,17 @@ static void	replace_var_for_value(char **argv, char *var, char *value)
 {
 	char	*before_var;
 	char	*var_end;
+	char	*var_start;
 	char	*result;
 
-	var_end = var;
-	result = NULL;
-	while (*var_end && !ft_isspace(*var_end) && *var_end != '\''
-		&& *var_end != '"')
-		var_end++;
+	var_start = ft_strnstr(*argv, var, ft_strlen(*argv));
+	var_end = var_start + ft_strlen(var);
 	if (!value)
 	{
-		ft_memmove(var, var_end, ft_strlen(var_end) + 1);
+		ft_memmove(var_start, var_end, ft_strlen(var_end) + 1);
 		return ;
 	}
-	if (*var_end == '\'' || *var == '"')
-		var_end++;
-	before_var = ft_substr(*argv, 0, var - *argv);
+	before_var = ft_substr(*argv, 0, var_start - *argv);
 	result = ft_strjoin((const char *)before_var, (const char *)value);
 	free(before_var);
 	before_var = *argv;
@@ -87,9 +86,9 @@ static void	expand_token(char **argv, char **envp)
 		while (*var_end && !ft_isspace(*var_end) && *var_end != '\''
 			&& *var_end != '"')
 			var_end++;
-		var = ft_substr(str, 1, var_end - (str + 1));
+		var = ft_substr(str, 0, var_end - str);
 		value = get_var_value(var, envp);
-		replace_var_for_value(argv, str, value);
+		replace_var_for_value(argv, var, value);
 		free(var);
 		free(value);
 		str = *argv;
