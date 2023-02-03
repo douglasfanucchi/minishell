@@ -12,12 +12,6 @@
 
 #include <minishell.h>
 
-static char	is_variable(char *str)
-{
-	return (*str == '$' && str[1] && !ft_isspace(str[1])
-		&& !ft_isdigit(str[1]));
-}
-
 static char	*get_var_value(char *var, char **envp)
 {
 	char	*value;
@@ -77,7 +71,7 @@ static void	expand_token(char **argv, char **envp)
 	str = *argv;
 	while (*str)
 	{
-		if (!is_variable(str))
+		if (!ft_is_variable(str))
 		{
 			str++;
 			continue ;
