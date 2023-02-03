@@ -82,9 +82,9 @@ static void	expand_token(char **argv, char **envp)
 			str++;
 			continue ;
 		}
-		var_end = str;
+		var_end = str + 1;
 		while (*var_end && !ft_isspace(*var_end) && *var_end != '\''
-			&& *var_end != '"')
+			&& *var_end != '"' && *var_end != '$')
 			var_end++;
 		var = ft_substr(str, 0, var_end - str);
 		value = get_var_value(var, envp);

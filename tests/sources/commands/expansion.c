@@ -95,7 +95,7 @@ MU_TEST(test_token_should_to_expand_even_with_single_quotes) {
 	ft_del_command(command);
 }
 
-MU_TEST(test_token_should_expand_two_together_variables) {
+MU_TEST(test_token_should_expand_two_straight_variables) {
 	t_command	*command = ft_new_command(ft_tokenizer("$SHELL$PATH"), env, path);
 	char		*assert_str = "minishell/usr/bin:/usr/sbin";
 
@@ -113,7 +113,7 @@ MU_TEST_SUITE(test_token_expansion) {
 	MU_RUN_TEST(test_token_should_expand_to_path_value);
 	MU_RUN_TEST(test_token_should_expand_to_bash_status_code);
 	MU_RUN_TEST(test_token_should_to_expand_even_with_single_quotes);
-	MU_RUN_TEST(test_token_should_expand_two_together_variables);
+	MU_RUN_TEST(test_token_should_expand_two_straight_variables);
 
 	int	i = 0;
 	while (env[i])
