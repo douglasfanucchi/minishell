@@ -17,6 +17,22 @@ MU_TEST(test_token_creation) {
 	token = ft_new_token("$any_var");
 	mu_check(token->should_expand);
 	ft_del_token(token);
+
+	token = ft_new_token("'$not_expand'");
+	mu_check(!token->should_expand);
+	ft_del_token(token);
+
+	token = ft_new_token("\"'$expand'\"");
+	mu_check(token->should_expand);
+	ft_del_token(token);
+
+	token = ft_new_token("$var$another");
+	mu_check(token->should_expand);
+	ft_del_token(token);
+
+	token = ft_new_token("'$not_expand'$should_expand");
+	mu_check(token->should_expand);
+	ft_del_token(token);
 }
 
 MU_TEST_SUITE(test_tokens) {

@@ -24,10 +24,23 @@ void	ft_del_token(void *param)
 
 static char	should_expand(char *token)
 {
-	if (*token == '\'')
-		return (0);
-	if (ft_strchr(token, '$'))
-		return (1);
+	char	quoted;
+
+	quoted = 0;
+	while (*token)
+	{
+		if (!quoted && (*token == '\'' || *token == '"'))
+		{
+			quoted = *token;
+			token++;
+			continue ;
+		}
+		if (ft_is_variable(token) && (!quoted || quoted == '"'))
+			return (1);
+		if (quoted == *token)
+			quoted = 0;
+		token++;
+	}
 	return (0);
 }
 
