@@ -61,17 +61,33 @@ static void	replace_var_for_value(char **argv, char *var, char *value)
 	free(result);
 }
 
+static char	should_skip(char *str, char *quoted)
+{
+	if (!*quoted && (*str == '\'' || *str == '"'))
+	{
+		*quoted = *str;
+		return (1);
+	}
+	if (ft_is_variable(str) && (!*quoted || *quoted == '"'))
+		return (0);
+	if (*quoted == *str)
+		*quoted = 0;
+	return (1);
+}
+
 static void	expand_token(char **argv, char **envp)
 {
 	char	*str;
 	char	*var_end;
 	char	*var;
 	char	*value;
+	char	quoted;
 
 	str = *argv;
+	quoted = 0;
 	while (*str)
 	{
-		if (!ft_is_variable(str))
+		if (should_skip(str, &quoted))
 		{
 			str++;
 			continue ;

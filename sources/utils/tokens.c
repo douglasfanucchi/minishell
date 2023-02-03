@@ -15,5 +15,5 @@
 char	ft_is_variable(char *str)
 {
 	return (*str == '$' && str[1] && !ft_isspace(str[1])
-		&& !ft_isdigit(str[1]));
+		&& !ft_isdigit(str[1])) && str[1] != '\"' && str[1] != '"';
 }
