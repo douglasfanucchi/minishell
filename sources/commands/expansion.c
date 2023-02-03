@@ -47,9 +47,11 @@ static void	replace_var_for_value(char **argv, char *var, char *value)
 
 	var_start = ft_strnstr(*argv, var, ft_strlen(*argv));
 	var_end = var_start + ft_strlen(var);
+	free(var);
 	if (!value)
 	{
 		ft_memmove(var_start, var_end, ft_strlen(var_end) + 1);
+		free(value);
 		return ;
 	}
 	before_var = ft_substr(*argv, 0, var_start - *argv);
@@ -59,6 +61,7 @@ static void	replace_var_for_value(char **argv, char *var, char *value)
 	*argv = ft_strjoin((const char *)result, (const char *)var_end);
 	free(before_var);
 	free(result);
+	free(value);
 }
 
 static char	should_skip(char *str, char *quoted)
@@ -99,8 +102,6 @@ static void	expand_token(char **argv, char **envp)
 		var = ft_substr(str, 0, var_end - str);
 		value = get_var_value(var, envp);
 		replace_var_for_value(argv, var, value);
-		free(var);
-		free(value);
 		str = *argv;
 	}
 }
