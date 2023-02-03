@@ -100,7 +100,16 @@ MU_TEST(test_token_should_expand_two_straight_variables) {
 	char		*assert_str = "minishell/usr/bin:/usr/sbin";
 
 	ft_expand_args(command);
-	mu_check(ft_strncmp(command->argv[0], assert_str, ft_strlen(assert_str)) == 0);
+	mu_check(ft_strncmp(command->argv[0], assert_str, ft_strlen(assert_str) + 1) == 0);
+	ft_del_command(command);
+}
+
+MU_TEST(test_should_expand_variable_after_quoted_variable) {
+	t_command	*command = ft_new_command(ft_tokenizer("'$not'$SHELL"), env, path);
+	char		*assert_str = "'$not'minishell";
+
+	ft_expand_args(command);
+	mu_check(ft_strncmp(command->argv[0], assert_str, ft_strlen(assert_str) + 1) == 0);
 	ft_del_command(command);
 }
 
@@ -114,6 +123,7 @@ MU_TEST_SUITE(test_token_expansion) {
 	MU_RUN_TEST(test_token_should_expand_to_bash_status_code);
 	MU_RUN_TEST(test_token_should_to_expand_even_with_single_quotes);
 	MU_RUN_TEST(test_token_should_expand_two_straight_variables);
+	MU_RUN_TEST(test_should_expand_variable_after_quoted_variable);
 
 	int	i = 0;
 	while (env[i])
