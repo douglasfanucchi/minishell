@@ -19,6 +19,8 @@ void	ft_del_token(void *param)
 	token = param;
 	free(token->original);
 	free(token->expanded);
+	ft_lstclear(token->variables, ft_del_variable);
+	free(token->variables);
 	free(token);
 }
 
@@ -52,5 +54,6 @@ t_token	*ft_new_token(char *str)
 	token->should_expand = should_expand(str);
 	token->original = ft_strdup(str);
 	token->expanded = ft_strdup(token->original);
+	token->variables = ft_newlist();
 	return (token);
 }

@@ -9,7 +9,7 @@ TESTS_LIBS = $(LIBS) -lm -lrt
 FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c \
       analyser/redirection.c analyser/pipe.c analyser/quoted.c analyser/analyse.c \
       commands/new_command.c redirects/redirect_file_descriptor.c redirects/new_redirect.c \
-	  utils/args.c commands/set_redirects.c commands/expansion.c utils/variables.c
+	  utils/args.c commands/set_redirects.c commands/expansion.c utils/variables.c variables/variable.c
 SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
 OBJS := $(OBJS:tokens/%=%)

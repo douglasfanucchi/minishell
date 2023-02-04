@@ -25,6 +25,7 @@ typedef struct s_token {
 	char	should_expand;
 	char	*original;
 	char	*expanded;
+	t_list	**variables;
 }	t_token;
 
 typedef struct s_tokenizer {
@@ -55,6 +56,12 @@ typedef struct s_redirect {
 	int	new_fd;
 }	t_redirect;
 
+typedef struct s_variable {
+	size_t	position;
+	size_t	len;
+	char	*value;
+}	t_variable;
+
 t_list		**ft_tokenizer(char *input);
 t_token		*ft_new_token(char *str);
 void		ft_del_token(void *param);
@@ -76,5 +83,7 @@ void		ft_set_command_redirects(t_command *command);
 void		ft_expand_args(t_command *command);
 char		ft_is_variable(char *str);
 char		ft_is_valid_variable_char(char c);
+t_variable	*ft_new_variable(size_t position, char *value);
+void		ft_del_variable(void *content);
 
 #endif
