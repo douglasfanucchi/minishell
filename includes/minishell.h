@@ -85,5 +85,6 @@ char		ft_is_variable(char *str);
 char		ft_is_valid_variable_char(char c);
 t_variable	*ft_new_variable(size_t position, char *value);
 void		ft_del_variable(void *content);
+void		ft_quote_removal(t_command *command);
 
 #endif

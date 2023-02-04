@@ -9,6 +9,7 @@
 #include "analyser/analyse.c"
 #include "commands/new_command.c"
 #include "commands/expansion.c"
+#include "commands/quote_removal.c"
 #include "redirects/new_redirect.c"
 #include "utils/args.c"
 
@@ -28,6 +29,7 @@ int	main(int argc, char **argv)
 	MU_RUN_SUITE(test_redirections);
 	MU_RUN_SUITE(test_utils_args);
 	MU_RUN_SUITE(test_token_expansion);
+	MU_RUN_SUITE(test_quote_removal);
 	MU_REPORT();
 	return (MU_EXIT_CODE);
 }
