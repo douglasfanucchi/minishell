@@ -116,7 +116,7 @@ t_command	*ft_new_command(t_list **tokens, char **envp, char **paths)
 		command->pathname = get_pathname(command->filename, paths);
 	command->argv = get_command_args(tokens);
 	command->envp = envp;
-	command->bash_status = 1;
+	command->bash_status = 0;
 	command->pid = 0;
 	command->pipe[0] = -1;
 	command->pipe[1] = -1;
