@@ -72,6 +72,7 @@ t_analyser	*get_redirection_analyser(void);
 t_analyser	*get_pipe_analyser(void);
 t_analyser	*get_quoted_analyser(void);
 char		*ft_analyse_token(t_list *node);
+char		*ft_analyse_command(t_command *command);
 char		ft_is_redirection_token(char *token);
 t_command	*ft_new_command(t_list **tokens, char **envp, char **paths);
 void		ft_del_command(void *cmd);

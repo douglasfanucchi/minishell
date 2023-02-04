@@ -37,3 +37,19 @@ char	*ft_analyse_token(t_list *node)
 	free(analyser);
 	return (result);
 }
+
+char	*ft_analyse_command(t_command *command)
+{
+	t_list	*node;
+	char	*unexpected_token;
+
+	node = *command->tokens;
+	while (node->next)
+	{
+		unexpected_token = ft_analyse_token(node);
+		if (unexpected_token)
+			return (unexpected_token);
+		node = node->next;
+	}
+	return (NULL);
+}
