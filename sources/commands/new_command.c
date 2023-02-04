@@ -17,7 +17,7 @@ static char	*get_pathname(char *bin, char **paths)
 	char	*pathname;
 	char	*slashed_bin;
 
-	if (access(bin, F_OK))
+	if (access(bin, F_OK) == 0)
 		return (ft_strdup(bin));
 	slashed_bin = ft_strjoin("/", bin);
 	while (*paths)

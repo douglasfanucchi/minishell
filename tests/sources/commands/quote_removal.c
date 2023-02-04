@@ -70,7 +70,7 @@ MU_TEST(test_should_not_remove_quotes_that_was_expanded) {
 
 MU_TEST_SUITE(test_quote_removal) {
 	env = ft_split("SHELL=minishell\nPATH=/usr/bin\nUSER=fanucchi\nquoted_var='hello'", '\n');
-	path = (char **)NULL;
+	path = (char **)ft_split("/usr/bin:", ':');
 
 	MU_RUN_TEST(test_should_remove_quotes_acting_as_quoting);
 	MU_RUN_TEST(test_shouldnot_remove_quotes_not_acting_as_quoting);
