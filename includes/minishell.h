@@ -76,6 +76,9 @@ char		*ft_analyse_command(t_command *command);
 char		ft_is_redirection_token(char *token);
 t_command	*ft_new_command(t_list **tokens, char **envp, char **paths);
 void		ft_del_command(void *cmd);
+char		*here_doc_filename(void);
+int			create_here_doc(char *here_doc_filename, char *limiter);
+void		ft_delete_here_docs(void);
 int			ft_get_redirect_file_descriptor(t_list *node);
 t_redirect	*ft_new_redirect(t_list *node);
 char		**ft_find_arg(char **argv, char *arg);
@@ -87,5 +90,7 @@ char		ft_is_valid_variable_char(char c);
 t_variable	*ft_new_variable(size_t position, char *value);
 void		ft_del_variable(void *content);
 void		ft_quote_removal(t_command *command);
+void		ft_executor(t_list **commands);
+void		ft_exec_commands(t_list **commands);
 
 #endif

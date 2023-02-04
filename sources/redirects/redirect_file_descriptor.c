@@ -40,55 +40,6 @@ static int	create_file(char *filename, int flags, mode_t mode)
 	return (fd);
 }
 
-static int	create_here_doc(char *here_doc_filename, char *limiter)
-{
-	char	*next_line;
-	int		fd;
-
-	fd = open(here_doc_filename, O_RDWR | O_CREAT | O_APPEND, 0644);
-	write(1, "heredoc> ", 9);
-	next_line = get_next_line(0);
-	while (next_line)
-	{
-		if (*next_line != '\n')
-			next_line[ft_strlen(next_line) - 1] = 0;
-		if (ft_strncmp(next_line, limiter, ft_strlen(next_line)) == 0)
-		{
-			free(next_line);
-			break ;
-		}
-		write(fd, next_line, ft_strlen(next_line));
-		if (*next_line != '\n')
-			write(fd, "\n", 1);
-		free(next_line);
-		write(1, "heredoc> ", 9);
-		next_line = get_next_line(0);
-	}
-	free(here_doc_filename);
-	return (fd);
-}
-
-static char	*here_doc_filename(void)
-{
-	char	*tmp_filename;
-	char	*str_n;
-	int		i;
-
-	i = 1;
-	str_n = NULL;
-	tmp_filename = ft_strdup(".tmp_here_doc");
-	while (access(tmp_filename, F_OK) == 0)
-	{
-		free(tmp_filename);
-		free(str_n);
-		str_n = ft_itoa(i);
-		tmp_filename = ft_strjoin(".tmp_here_doc_", str_n);
-		i++;
-	}
-	free(str_n);
-	return (tmp_filename);
-}
-
 int	ft_get_redirect_file_descriptor(t_list *node)
 {
 	t_token	*token;
