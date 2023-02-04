@@ -152,6 +152,28 @@ MU_TEST(test_should_not_consider_invalid_char_at_var_name) {
 	ft_del_command(command);
 }
 
+MU_TEST(test_variable_positions) {
+	t_command	*command = ft_new_command(ft_tokenizer("$SHELL"), env, path);
+	ft_expand_args(command);
+	t_list	*token_node = *command->tokens;
+	t_token	*token = token_node->content;
+	t_list	*var_node = *token->variables;
+	t_variable	*var = var_node->content;
+
+	mu_check(var->position == 0);
+	ft_del_command(command);
+
+	command = ft_new_command(ft_tokenizer("hello$SHELL"), env, path);
+	ft_expand_args(command);
+	token_node = *command->tokens;
+	token = token_node->content;
+	var_node = *token->variables;
+	var = var_node->content;
+
+	mu_check(var->position == 5);
+	ft_del_command(command);
+}
+
 MU_TEST_SUITE(test_token_expansion) {
 	env = ft_split("PATH=/usr/bin:/usr/sbin\nSHELL=minishell", '\n');
 	path = ft_split("/usr/bin:/usr/sbin", ':');
@@ -165,6 +187,7 @@ MU_TEST_SUITE(test_token_expansion) {
 	MU_RUN_TEST(test_should_expand_variable_after_quoted_variable);
 	MU_RUN_TEST(test_should_expand_quoted_straight_tokens);
 	MU_RUN_TEST(test_should_not_consider_invalid_char_at_var_name);
+	MU_RUN_TEST(test_variable_positions);
 
 	int	i = 0;
 	while (env[i])

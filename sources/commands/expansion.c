@@ -38,7 +38,8 @@ static char	*get_var_value(char *var, char **envp)
 	return (NULL);
 }
 
-static void	replace_var_for_value(char **argv, char *var, char *value)
+static void	replace_var_for_value(char **argv, char *var, char *value,
+			t_list **variables)
 {
 	char	*before_var;
 	char	*var_end;
@@ -55,6 +56,8 @@ static void	replace_var_for_value(char **argv, char *var, char *value)
 		return ;
 	}
 	before_var = ft_substr(*argv, 0, var_start - *argv);
+	ft_lstadd_back(variables, ft_lstnew(
+			ft_new_variable(var_start - *argv, value)));
 	result = ft_strjoin((const char *)before_var, (const char *)value);
 	free(before_var);
 	before_var = *argv;
@@ -78,7 +81,7 @@ static char	should_skip(char *str, char *quoted)
 	return (1);
 }
 
-static void	expand_token(char **argv, char **envp)
+static void	expand_token(char **argv, char **envp, t_list **variables)
 {
 	char	*str;
 	char	*var_end;
@@ -101,7 +104,7 @@ static void	expand_token(char **argv, char **envp)
 			while (*var_end && ft_is_valid_variable_char(*var_end))
 				var_end++;
 		var = ft_substr(str, 0, var_end - str);
-		replace_var_for_value(argv, var, get_var_value(var, envp));
+		replace_var_for_value(argv, var, get_var_value(var, envp), variables);
 		str = *argv;
 	}
 }
@@ -120,7 +123,7 @@ void	ft_expand_args(t_command *command)
 	{
 		token = node->content;
 		if (token->should_expand)
-			expand_token(argv, command->envp);
+			expand_token(argv, command->envp, token->variables);
 		argv++;
 		node = node->next;
 	}
