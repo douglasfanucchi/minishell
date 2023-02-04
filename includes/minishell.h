@@ -75,5 +75,6 @@ void		ft_remove_arg(char **argv, char *arg);
 void		ft_set_command_redirects(t_command *command);
 void		ft_expand_args(t_command *command);
 char		ft_is_variable(char *str);
+char		ft_is_valid_variable_char(char c);
 
 #endif

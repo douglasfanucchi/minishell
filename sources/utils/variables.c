@@ -12,6 +12,11 @@
 
 #include <minishell.h>
 
+char	ft_is_valid_variable_char(char c)
+{
+	return (ft_isalnum(c) || c == '_');
+}
+
 char	ft_is_variable(char *str)
 {
 	return ((*str == '$' && str[1] && !ft_isspace(str[1])

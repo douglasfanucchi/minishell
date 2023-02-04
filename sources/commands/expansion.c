@@ -83,7 +83,6 @@ static void	expand_token(char **argv, char **envp)
 	char	*str;
 	char	*var_end;
 	char	*var;
-	char	*value;
 	char	quoted;
 
 	str = *argv;
@@ -96,12 +95,13 @@ static void	expand_token(char **argv, char **envp)
 			continue ;
 		}
 		var_end = str + 1;
-		while (*var_end && !ft_isspace(*var_end) && *var_end != '\''
-			&& *var_end != '"' && *var_end != '$')
+		if (*var_end == '?')
 			var_end++;
+		else
+			while (*var_end && ft_is_valid_variable_char(*var_end))
+				var_end++;
 		var = ft_substr(str, 0, var_end - str);
-		value = get_var_value(var, envp);
-		replace_var_for_value(argv, var, value);
+		replace_var_for_value(argv, var, get_var_value(var, envp));
 		str = *argv;
 	}
 }

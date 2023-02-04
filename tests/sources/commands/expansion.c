@@ -143,6 +143,13 @@ MU_TEST(test_should_not_consider_invalid_char_at_var_name) {
 	ft_expand_args(command);
 	mu_check(ft_strncmp(command->argv[0], assert_str, ft_strlen(assert_str) + 1) == 0);
 	ft_del_command(command);
+
+	command = ft_new_command(ft_tokenizer("hello$?world"), env, path);
+	assert_str = "hello127world";
+
+	ft_expand_args(command);
+	mu_check(ft_strncmp(command->argv[0], assert_str, ft_strlen(assert_str) + 1) == 0);
+	ft_del_command(command);
 }
 
 MU_TEST_SUITE(test_token_expansion) {
