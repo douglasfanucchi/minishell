@@ -98,7 +98,7 @@ void	ft_del_command(void *cmd)
 	while (*argv)
 		free(*(argv++));
 	free(command->argv);
-	ft_lstclear(command->redirects, free);
+	ft_lstclear(command->redirects, ft_del_redirect);
 	free(command->redirects);
 	ft_del_tokens(command->tokens);
 	free(command);

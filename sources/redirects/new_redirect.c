@@ -12,6 +12,18 @@
 
 #include <minishell.h>
 
+void	ft_del_redirect(void *content)
+{
+	t_redirect	*redirect;
+
+	redirect = content;
+	if (redirect->old_fd != -1)
+		close(redirect->old_fd);
+	if (redirect->new_fd > 2)
+		close(redirect->new_fd);
+	free(redirect);
+}
+
 t_redirect	*ft_new_redirect(t_list *node)
 {
 	t_redirect	*redirect;

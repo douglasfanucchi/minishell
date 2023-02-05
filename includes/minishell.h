@@ -92,5 +92,6 @@ void		ft_del_variable(void *content);
 void		ft_quote_removal(t_command *command);
 void		ft_executor(t_list **commands);
 void		ft_exec_commands(t_list **commands);
+void		ft_del_redirect(void *content);
 
 #endif
