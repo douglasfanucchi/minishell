@@ -19,7 +19,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-extern char	g_bash_status;
+extern unsigned char	g_bash_status;
 
 typedef struct s_token {
 	char	should_expand;

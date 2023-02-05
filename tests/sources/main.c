@@ -13,7 +13,7 @@
 #include "redirects/new_redirect.c"
 #include "utils/args.c"
 
-char	g_bash_status;
+char unsigned	g_bash_status;
 
 int	main(int argc, char **argv)
 {

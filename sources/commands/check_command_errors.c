@@ -14,7 +14,7 @@
 
 void	check_command_errors(t_command *command)
 {
-	if (!command->pathname && !command->is_builtin)
+	if (!*command->pathname && !command->is_builtin)
 	{
 		ft_lstadd_back(command->errors, ft_lstnew(
 				ft_strjoin(command->filename, ": command not found\n")));
