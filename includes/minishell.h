@@ -49,6 +49,7 @@ typedef struct s_command {
 	char	is_builtin;
 	t_list	**tokens;
 	t_list	**redirects;
+	t_list	**errors;
 }	t_command;
 
 typedef struct s_redirect {

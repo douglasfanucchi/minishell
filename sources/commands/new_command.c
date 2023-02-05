@@ -100,6 +100,8 @@ void	ft_del_command(void *cmd)
 	free(command->argv);
 	ft_lstclear(command->redirects, ft_del_redirect);
 	free(command->redirects);
+	ft_lstclear(command->errors, free);
+	free(command->errors);
 	ft_del_tokens(command->tokens);
 	free(command);
 }
@@ -121,6 +123,7 @@ t_command	*ft_new_command(t_list **tokens, char **envp, char **paths)
 	command->pipe[0] = -1;
 	command->pipe[1] = -1;
 	command->tokens = tokens;
+	command->errors = ft_newlist();
 	command->redirects = ft_newlist();
 	return (command);
 }
