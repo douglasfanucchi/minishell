@@ -95,5 +95,7 @@ void		ft_executor(t_list **commands);
 void		ft_exec_commands(t_list **commands);
 void		ft_del_redirect(void *content);
 void		check_command_errors(t_command *command);
+char		**ft_get_paths(char **envp);
+void		ft_del_paths(char **paths);
 
 #endif
