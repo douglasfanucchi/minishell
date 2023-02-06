@@ -48,11 +48,11 @@ static void	print_command_error(t_command *command)
 	error = *command->errors;
 	if (!error)
 	{
-		g_bash_status = 1;
+		g_minishell.status = 1;
 		return ;
 	}
 	ft_putstr_fd(error->content, 2);
-	g_bash_status = command->bash_status;
+	g_minishell.status = command->bash_status;
 }
 
 static int	exec_cmd(t_command *prev_command, t_command *command,
@@ -71,14 +71,9 @@ static int	exec_cmd(t_command *prev_command, t_command *command,
 	dup_file_descriptors(prev_command, command, next_command);
 	close(command->pipe[1]);
 	close(command->pipe[0]);
-	if (command->bash_status != 0)
-	{
-		check_command_errors(command);
-		print_command_error(command);
-		return (0);
-	}
-	if (!command->is_builtin)
-		execve(command->pathname, command->argv, command->envp);
+	execve(command->pathname, command->argv, command->envp);
+	check_command_errors(command);
+	print_command_error(command);
 	return (0);
 }
 
@@ -91,9 +86,9 @@ static void	set_status_and_wait_pid(pid_t pid, t_list *node)
 	wstatus = -1;
 	waitpid(pid, &wstatus, 0);
 	if (WIFEXITED(wstatus))
-		g_bash_status = WEXITSTATUS(wstatus);
+		g_minishell.status = WEXITSTATUS(wstatus);
 	else if (WIFSIGNALED(wstatus))
-		g_bash_status = 128 + WTERMSIG(wstatus);
+		g_minishell.status = 128 + WTERMSIG(wstatus);
 	while (node->next)
 	{
 		wait(NULL);

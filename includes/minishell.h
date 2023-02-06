@@ -19,7 +19,12 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-extern unsigned char	g_bash_status;
+typedef struct s_shell {
+	char			**envp;
+	unsigned char	status;
+}	t_shell;
+
+extern t_shell	g_minishell;
 
 typedef struct s_token {
 	char	should_expand;

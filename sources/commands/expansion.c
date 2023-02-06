@@ -19,7 +19,7 @@ static char	*get_var_value(char *var, char **envp)
 	size_t	var_len;
 
 	if (ft_strncmp(var, "$?", 3) == 0)
-		return (ft_itoa(g_bash_status));
+		return (ft_itoa(g_minishell.status));
 	var = ft_substr(var, 1, ft_strlen(var) - 1);
 	var_equals = ft_strjoin(var, "=");
 	var_len = ft_strlen(var_equals);

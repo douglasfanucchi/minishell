@@ -17,7 +17,7 @@ static void	validate_commands_syntax(void *content)
 	t_command	*command;
 	char		*unexpected_token;
 
-	if (g_bash_status != 0)
+	if (g_minishell.status != 0)
 		return ;
 	command = content;
 	unexpected_token = ft_analyse_command(command);
@@ -27,14 +27,14 @@ static void	validate_commands_syntax(void *content)
 			unexpected_token = "newline";
 		printf("syntax error near unexpected token `%s`\n",
 			unexpected_token);
-		g_bash_status = 2;
+		g_minishell.status = 2;
 	}
 }
 
 void	ft_executor(t_list **commands)
 {
 	ft_lstiter(*commands, validate_commands_syntax);
-	if (g_bash_status == 0)
+	if (g_minishell.status == 0)
 		ft_exec_commands(commands);
 	ft_lstclear(commands, ft_del_command);
 	ft_delete_here_docs();

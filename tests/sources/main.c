@@ -13,11 +13,11 @@
 #include "redirects/new_redirect.c"
 #include "utils/args.c"
 
-char unsigned	g_bash_status;
+t_shell	g_minishell;
 
 int	main(int argc, char **argv)
 {
-	g_bash_status = 127;
+	g_minishell.status = 127;
 
 	MU_RUN_SUITE(test_tokens);
 	MU_RUN_SUITE(test_tokenizer);
