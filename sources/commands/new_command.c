@@ -125,5 +125,6 @@ t_command	*ft_new_command(t_list **tokens, char **envp, char **paths)
 	command->tokens = tokens;
 	command->errors = ft_newlist();
 	command->redirects = ft_newlist();
+	ft_del_paths(paths);
 	return (command);
 }
