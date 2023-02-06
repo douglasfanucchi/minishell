@@ -104,5 +104,6 @@ char		**ft_get_paths(char **envp);
 void		ft_del_paths(char **paths);
 char		**ft_new_envp(char **envp);
 void		ft_del_envp(char **envp);
+void		ft_child_exit_shell(t_list **commands, char status);
 
 #endif

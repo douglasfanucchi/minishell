@@ -115,7 +115,7 @@ void	ft_exec_commands(t_list **commands)
 		if (node->next)
 			next_command = node->next->content;
 		if (!exec_cmd(prev_command, command, next_command))
-			break ;
+			ft_child_exit_shell(commands, command->bash_status);
 		if (prev_command)
 			close(prev_command->pipe[0]);
 		node = node->next;
