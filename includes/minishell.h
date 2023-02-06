@@ -102,5 +102,7 @@ void		ft_del_redirect(void *content);
 void		check_command_errors(t_command *command);
 char		**ft_get_paths(char **envp);
 void		ft_del_paths(char **paths);
+char		**ft_new_envp(char **envp);
+void		ft_del_envp(char **envp);
 
 #endif

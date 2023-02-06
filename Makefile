@@ -1,6 +1,6 @@
 NAME=minishell
 CC=cc
-FLAGS=-c -I includes/ -I lib/libft
+FLAGS=-c -I includes/ -I lib/libft -g3
 LIBFT_PATH=lib/libft
 LIBFT=$(LIBFT_PATH)/libft.a
 LIBS=-L$(LIBFT_PATH) -lft -lreadline
@@ -11,7 +11,7 @@ FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c \
       commands/new_command.c redirects/redirect_file_descriptor.c redirects/new_redirect.c redirects/here_doc.c \
 	  utils/args.c commands/set_redirects.c commands/expansion.c utils/variables.c variables/variable.c \
 	  commands/quote_removal.c executor/executor.c executor/exec_commands.c commands/check_command_errors.c \
-	  utils/path.c
+	  utils/path.c utils/envp.c
 SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
 OBJS := $(OBJS:tokens/%=%)
