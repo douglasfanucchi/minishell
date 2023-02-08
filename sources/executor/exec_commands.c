@@ -71,7 +71,8 @@ static int	exec_cmd(t_command *prev_command, t_command *command,
 	dup_file_descriptors(prev_command, command, next_command);
 	close(command->pipe[1]);
 	close(command->pipe[0]);
-	execve(command->pathname, command->argv, command->envp);
+	if (command->bash_status == 0)
+		execve(command->pathname, command->argv, command->envp);
 	check_command_errors(command);
 	print_command_error(command);
 	return (0);
