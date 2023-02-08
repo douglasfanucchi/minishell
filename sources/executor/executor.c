@@ -37,6 +37,5 @@ void	ft_executor(t_list **commands)
 	if (g_minishell.status == 0)
 		ft_exec_commands(commands);
 	ft_lstclear(commands, ft_del_command);
-	ft_delete_here_docs();
 	free(commands);
 }

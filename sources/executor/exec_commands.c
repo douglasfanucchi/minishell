@@ -59,13 +59,13 @@ static int	exec_cmd(t_command *prev_command, t_command *command,
 		t_command *next_command)
 {
 	pipe(command->pipe);
+	ft_set_command_redirects(command);
 	command->pid = fork();
 	if (command->pid != 0)
 	{
 		close(command->pipe[1]);
 		return (1);
 	}
-	ft_set_command_redirects(command);
 	ft_expand_args(command);
 	ft_quote_removal(command);
 	dup_file_descriptors(prev_command, command, next_command);
