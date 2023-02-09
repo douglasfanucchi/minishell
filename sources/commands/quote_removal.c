@@ -77,6 +77,31 @@ static void	remove_quotes(char *str, t_token *token)
 	}
 }
 
+void	remove_quotes_from_filename(t_command *command, t_token *token)
+{
+	t_list		**argv_variables;
+	t_token		*filename_token;
+	t_variable	*variable;
+	t_list		*node;
+
+	filename_token = malloc(sizeof(t_token));
+	ft_memmove(filename_token, token, sizeof(t_token));
+	filename_token->original = ft_strdup(token->original);
+	filename_token->expanded = ft_strdup(token->expanded);
+	filename_token->variables = ft_newlist();
+	node = *token->variables;
+	while (node)
+	{
+		variable = malloc(sizeof(t_variable));
+		ft_memmove(variable, node->content, sizeof(t_variable));
+		variable->value = ft_strdup(variable->value);
+		ft_lstadd_back(filename_token->variables, ft_lstnew(variable));
+		node = node->next;
+	}
+	remove_quotes(command->filename, filename_token);
+	ft_del_token((void *)filename_token);
+}
+
 void	ft_quote_removal(t_command *command)
 {
 	t_list	*tokens_node;
@@ -86,7 +111,7 @@ void	ft_quote_removal(t_command *command)
 	tokens_node = *command->tokens;
 	argv = command->argv;
 	token = tokens_node->content;
-	remove_quotes(command->filename, token);
+	remove_quotes_from_filename(command, token);
 	while (tokens_node->next)
 	{
 		token = tokens_node->content;
