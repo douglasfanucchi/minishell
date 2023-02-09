@@ -34,7 +34,7 @@ static void	validate_commands_syntax(void *content)
 void	ft_executor(t_list **commands)
 {
 	ft_lstiter(*commands, validate_commands_syntax);
-	if (g_minishell.status == 0)
+	if (g_minishell.status == 0 && *commands)
 		ft_exec_commands(commands);
 	ft_lstclear(commands, ft_del_command);
 	free(commands);
