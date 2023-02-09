@@ -12,11 +12,6 @@
 
 #include <minishell.h>
 
-char	is_quote(char c)
-{
-	return (c == '\'' || c == '"');
-}
-
 static char	is_expanded_char(t_token *token, size_t i)
 {
 	t_list		*var_node;
@@ -57,7 +52,7 @@ static void	remove_quotes(char *str, t_token *token)
 	i = 0;
 	while (str[i])
 	{
-		if (!is_quote(str[i]) || (quoted && quoted != str[i])
+		if (!ft_is_quote(str[i]) || (quoted && quoted != str[i])
 			|| is_expanded_char(token, i))
 		{
 			i++;

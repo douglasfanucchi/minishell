@@ -107,5 +107,6 @@ void		ft_del_envp(char **envp);
 void		ft_child_exit_shell(t_list **commands, char status);
 t_list		**ft_commands(char *input);
 char		*get_pathname(char *bin, char **paths);
+char		ft_is_quote(char c);
 
 #endif
