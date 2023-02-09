@@ -12,15 +12,17 @@
 
 #include <minishell.h>
 
-static char	validate_commands(t_list *node)
+static char	validate_input(char *input)
 {	
-	t_command	*command;
+	t_list		**tokens;
+	t_list		*node;
 	char		*unexpected_token;
 
+	tokens = ft_tokenizer(input);
+	node = *tokens;
 	while (node)
 	{
-		command = node->content;
-		unexpected_token = ft_analyse_command(command);
+		unexpected_token = ft_analyse_token(node);
 		if (unexpected_token)
 		{
 			if (ft_strncmp(unexpected_token, "\n", 2) == 0)
@@ -28,16 +30,25 @@ static char	validate_commands(t_list *node)
 			printf("syntax error near unexpected token `%s`\n",
 				unexpected_token);
 			g_minishell.status = 2;
+			ft_lstclear(tokens, ft_del_token);
+			free(tokens);
 			return (0);
 		}
 		node = node->next;
 	}
+	ft_lstclear(tokens, ft_del_token);
+	free(tokens);
 	return (1);
 }
 
-void	ft_executor(t_list **commands)
+void	ft_executor(char *input)
 {
-	if (!*commands || !validate_commands(*commands))
+	t_list	**commands;
+
+	if (!validate_input(input))
+		return ;
+	commands = ft_commands(input);
+	if (!*commands)
 		return ;
 	ft_exec_commands(commands);
 	ft_lstclear(commands, ft_del_command);

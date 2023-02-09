@@ -25,15 +25,13 @@ void	ft_child_exit_shell(t_list **commands, char status)
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
-	t_list	**commands;
 
 	g_minishell.status = 0;
 	g_minishell.envp = ft_new_envp(env);
 	line = readline("$> ");
 	while (line)
 	{
-		commands = ft_commands(line);
-		ft_executor(commands);
+		ft_executor(line);
 		add_history(line);
 		line = readline("$> ");
 	}

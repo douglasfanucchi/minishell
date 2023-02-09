@@ -96,7 +96,7 @@ char		ft_is_valid_variable_char(char c);
 t_variable	*ft_new_variable(size_t position, char *value);
 void		ft_del_variable(void *content);
 void		ft_quote_removal(t_command *command);
-void		ft_executor(t_list **commands);
+void		ft_executor(char *input);
 void		ft_exec_commands(t_list **commands);
 void		ft_del_redirect(void *content);
 void		check_command_errors(t_command *command);
