@@ -1,9 +1,6 @@
 #include <minunit.h>
 #include <minishell.h>
 
-char	envp[1][4096];
-char	**paths;
-
 MU_TEST(test_command_filename_should_ignore_redirect_tokens) {
 	t_list		**tokens = ft_newlist();
 	t_command	*command;
@@ -13,7 +10,7 @@ MU_TEST(test_command_filename_should_ignore_redirect_tokens) {
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("cat")));
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
 
-	command = ft_new_command(tokens, (char **)envp, (char **)paths);
+	command = ft_new_command(tokens, g_minishell.envp, ft_get_paths(g_minishell.envp));
 	mu_check(command->filename != NULL);
 	mu_check(ft_strncmp(command->filename, "cat", 4) == 0);
 
@@ -25,7 +22,7 @@ MU_TEST(test_command_filename_should_be_empty) {
 	t_command	*command;
 
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
-	command = ft_new_command(tokens, (char **)envp, (char **)paths);
+	command = ft_new_command(tokens, g_minishell.envp, ft_get_paths(g_minishell.envp));
 	mu_check(command->filename != NULL);
 	mu_check(command->filename[0] == '\0');
 
@@ -37,7 +34,7 @@ MU_TEST(test_command_filename_should_be_empty) {
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("filename")));
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
 
-	command = ft_new_command(tokens, (char **)envp, (char **)paths);
+	command = ft_new_command(tokens, g_minishell.envp, ft_get_paths(g_minishell.envp));
 	mu_check(command->filename != NULL);
 	mu_check(command->filename[0] == '\0');
 
@@ -50,7 +47,7 @@ MU_TEST(test_command_filename_should_be_first_token) {
 
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("cat")));
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
-	command = ft_new_command(tokens, (char **)envp, (char **)paths);
+	command = ft_new_command(tokens, g_minishell.envp, ft_get_paths(g_minishell.envp));
 	mu_check(command->filename != NULL);
 	mu_check(ft_strncmp(command->filename, "cat", 4) == 0);
 
@@ -63,7 +60,7 @@ MU_TEST(test_command_args_should_not_have_newline) {
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("Makefile")));
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
 
-	t_command *command = ft_new_command(tokens, (char **)envp, (char **)paths);
+	t_command *command = ft_new_command(tokens, g_minishell.envp, ft_get_paths(g_minishell.envp));
 	char **args = command->argv;
 
 	while (*(args + 1))
@@ -81,7 +78,7 @@ MU_TEST(test_command_args_should_have_same_values_as_token) {
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("Makefie")));
 	ft_lstadd_back(tokens, ft_lstnew(ft_new_token("\n")));
 	t_list	*node = *tokens;
-	t_command *command = ft_new_command(tokens, (char **)envp, (char **)paths);
+	t_command *command = ft_new_command(tokens, g_minishell.envp, ft_get_paths(g_minishell.envp));
 	char **argv = command->argv;
 
 	while (node->next)
@@ -96,17 +93,9 @@ MU_TEST(test_command_args_should_have_same_values_as_token) {
 }
 
 MU_TEST_SUITE(test_new_command) {
-	ft_strlcpy(envp[0], "PATH=/usr/bin", ft_strlen("PATH=/usr/bin"));
-	paths = ft_split(envp[0], ':');
-
 	MU_RUN_TEST(test_command_filename_should_ignore_redirect_tokens);
 	MU_RUN_TEST(test_command_filename_should_be_empty);
 	MU_RUN_TEST(test_command_filename_should_be_first_token);
 	MU_RUN_TEST(test_command_args_should_have_same_values_as_token);
 	MU_RUN_TEST(test_command_args_should_not_have_newline);
-
-	int i = 0;
-	while (paths[i])
-		free(paths[i++]);
-	free(paths);
 }
