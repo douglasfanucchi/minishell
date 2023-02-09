@@ -119,6 +119,8 @@ void	ft_expand_args(t_command *command)
 	tokens = command->tokens;
 	argv = command->argv;
 	node = *tokens;
+	token = node->content;
+	expand_token(&command->filename, command->envp, token->variables);
 	while (node->next)
 	{
 		token = node->content;

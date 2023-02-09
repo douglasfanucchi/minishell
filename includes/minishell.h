@@ -57,6 +57,7 @@ typedef struct s_command {
 	t_list	**tokens;
 	t_list	**redirects;
 	t_list	**errors;
+	char	**paths;
 }	t_command;
 
 typedef struct s_redirect {
@@ -105,5 +106,6 @@ char		**ft_new_envp(char **envp);
 void		ft_del_envp(char **envp);
 void		ft_child_exit_shell(t_list **commands, char status);
 t_list		**ft_commands(char *input);
+char		*get_pathname(char *bin, char **paths);
 
 #endif

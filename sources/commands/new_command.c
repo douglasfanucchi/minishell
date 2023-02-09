@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-static char	*get_pathname(char *bin, char **paths)
+char	*get_pathname(char *bin, char **paths)
 {
 	char	*pathname;
 	char	*slashed_bin;
@@ -97,6 +97,7 @@ void	ft_del_command(void *cmd)
 	free(command->pathname);
 	while (*argv)
 		free(*(argv++));
+	ft_del_paths(command->paths);
 	free(command->argv);
 	ft_lstclear(command->redirects, ft_del_redirect);
 	free(command->redirects);
@@ -114,10 +115,9 @@ t_command	*ft_new_command(t_list **tokens, char **envp, char **paths)
 	command->filename = get_filename(tokens);
 	command->is_builtin = 0;
 	command->pathname = NULL;
-	if (!command->is_builtin)
-		command->pathname = get_pathname(command->filename, paths);
 	command->argv = get_command_args(tokens);
 	command->envp = envp;
+	command->paths = paths;
 	command->bash_status = 0;
 	command->pid = 0;
 	command->pipe[0] = -1;
@@ -125,6 +125,5 @@ t_command	*ft_new_command(t_list **tokens, char **envp, char **paths)
 	command->tokens = tokens;
 	command->errors = ft_newlist();
 	command->redirects = ft_newlist();
-	ft_del_paths(paths);
 	return (command);
 }

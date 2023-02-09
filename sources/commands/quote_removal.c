@@ -85,6 +85,8 @@ void	ft_quote_removal(t_command *command)
 
 	tokens_node = *command->tokens;
 	argv = command->argv;
+	token = tokens_node->content;
+	remove_quotes(command->filename, token);
 	while (tokens_node->next)
 	{
 		token = tokens_node->content;
