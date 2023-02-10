@@ -10,6 +10,7 @@
 #include "commands/new_command.c"
 #include "commands/expansion.c"
 #include "commands/quote_removal.c"
+#include "commands/builtins/builtins.c"
 #include "redirects/new_redirect.c"
 #include "utils/args.c"
 
@@ -34,6 +35,7 @@ int	main(int argc, char **argv)
 	MU_RUN_SUITE(test_utils_args);
 	MU_RUN_SUITE(test_token_expansion);
 	MU_RUN_SUITE(test_quote_removal);
+	MU_RUN_SUITE(test_builtins);
 	MU_REPORT();
 
 	ft_del_envp(g_minishell.envp);
