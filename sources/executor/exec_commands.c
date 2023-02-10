@@ -74,6 +74,8 @@ static int	exec_cmd(t_command *prev_command, t_command *command,
 	command->pathname = get_pathname(command->filename, command->paths);
 	if (command->bash_status == 0 && !command->is_builtin)
 		execve(command->pathname, command->argv, command->envp);
+	else if (command->is_builtin)
+		ft_exec_builtin(command);
 	check_command_errors(command);
 	print_command_error(command);
 	return (0);
