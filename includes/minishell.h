@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:47:05 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/10 11:46:33 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:12:07 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,12 @@ char		*get_pathname(char *bin, char **paths);
 char		ft_is_quote(char c);
 char		ft_is_builtin(t_command *command);
 t_builtin	*ft_new_echo(void);
+t_builtin	*ft_new_change_directory(void);
 t_builtin	*ft_new_builtin(char *id);
 void		ft_del_builtin(void *content);
 int			ft_exec_builtin(t_command *command);
+char		*ft_envp_value(char **envp, char *var);
+int			ft_envp_update_var(char **envp, char *var, char *value);
+int			ft_envp_remove(char **envp, char *var);
 
 #endif

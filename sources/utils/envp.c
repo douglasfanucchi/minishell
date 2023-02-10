@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 11:50:21 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/06 11:50:22 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/10 17:12:07 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,63 @@ void	ft_del_envp(char **envp)
 		t_envp++;
 	}
 	free(envp);
+}
+
+char	*ft_envp_value(char **envp, char *var)
+{
+	char	*result;
+	char	**splitted;
+
+	while (*envp)
+	{
+		if (ft_strncmp(*envp, var, ft_strlen(var) + 1) - '=' == 0)
+			return (ft_strdup(*envp + ft_strlen(var) + 1));
+		envp++;
+	}
+	return (NULL);
+}
+
+int	ft_envp_update_var(char **envp, char *var, char *value)
+{
+	char	*str;
+
+	while (*envp)
+	{
+		if (ft_strncmp(*envp, var, ft_strlen(var) + 1) - '=' != 0)
+		{
+			envp++;
+			continue ;
+		}
+		free(*envp);
+		*envp = malloc(sizeof(char) * (ft_strlen(value) + ft_strlen(var) + 2));
+		str = *envp;
+		ft_memmove(str, var, ft_strlen(var));
+		str += ft_strlen(var);
+		str[0] = '=';
+		str++;
+		ft_memmove(str, value, ft_strlen(value) + 1);
+		return (0);
+	}
+	return (1);
+}
+
+int	ft_envp_remove(char **envp, char *var)
+{
+	size_t	len;
+
+	while (*envp)
+	{
+		if (ft_strncmp(*envp, var, ft_strlen(var) + 1) - '=' != 0)
+		{
+			envp++;
+			continue ;
+		}
+		len = 0;
+		while (envp[len])
+			len++;
+		free(*envp);
+		ft_memmove(envp, envp + 1, len * sizeof(char *));
+		return (0);
+	}
+	return (1);
 }
