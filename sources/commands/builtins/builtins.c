@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 07:58:34 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/10 07:58:34 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/10 11:16:38 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,20 @@ char	ft_is_builtin(t_command *command)
 	}
 	del_builtin_filenames(builtins_filenames);
 	return (0);
+}
+
+void	ft_del_builtin(void *content)
+{
+	t_builtin	*builtin;
+
+	builtin = content;
+	free(builtin->id);
+	free(builtin);
+}
+
+t_builtin	*ft_new_builtin(char *id)
+{
+	if (ft_strncmp(id, "echo", ft_strlen("echo") + 1) == 0)
+		return (ft_new_echo());
+	return (NULL);
 }

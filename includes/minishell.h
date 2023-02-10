@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:47:05 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/01/18 13:47:06 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/10 11:46:33 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ typedef struct s_variable {
 	char	*value;
 }	t_variable;
 
+typedef struct s_builtin {
+	char	*id;
+	int		(*exec)(t_command *command);
+}	t_builtin;
+
 t_list		**ft_tokenizer(char *input);
 t_token		*ft_new_token(char *str);
 void		ft_del_token(void *param);
@@ -109,5 +114,9 @@ t_list		**ft_commands(char *input);
 char		*get_pathname(char *bin, char **paths);
 char		ft_is_quote(char c);
 char		ft_is_builtin(t_command *command);
+t_builtin	*ft_new_echo(void);
+t_builtin	*ft_new_builtin(char *id);
+void		ft_del_builtin(void *content);
+int			ft_exec_builtin(t_command *command);
 
 #endif
