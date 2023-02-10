@@ -113,7 +113,7 @@ t_command	*ft_new_command(t_list **tokens, char **envp, char **paths)
 
 	command = malloc(sizeof(t_command));
 	command->filename = get_filename(tokens);
-	command->is_builtin = 0;
+	command->is_builtin = ft_is_builtin(command);
 	command->pathname = NULL;
 	command->argv = get_command_args(tokens);
 	command->envp = envp;
