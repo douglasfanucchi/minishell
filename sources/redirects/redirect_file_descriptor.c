@@ -24,7 +24,7 @@ static int	create_here_doc(char *limiter)
 	{
 		if (*next_line != '\n')
 			next_line[ft_strlen(next_line) - 1] = 0;
-		if (ft_strncmp(next_line, limiter, ft_strlen(next_line)) == 0)
+		if (ft_strncmp(next_line, limiter, ft_strlen(limiter) + 1) == 0)
 		{
 			free(next_line);
 			break ;
