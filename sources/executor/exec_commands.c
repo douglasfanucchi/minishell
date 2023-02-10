@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:56:49 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/04 14:56:49 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:06:46 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	dup_file_descriptors(t_command *prev_command, t_command *command,
+void	dup_file_descriptors(t_command *prev_command, t_command *command,
 		t_command *next_command)
 {
 	t_list		*node;
@@ -41,7 +41,7 @@ static void	dup_file_descriptors(t_command *prev_command, t_command *command,
 	}
 }
 
-static void	print_command_error(t_command *command)
+void	print_command_error(t_command *command)
 {
 	t_list	*error;
 
