@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:47:05 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 16:34:05 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:25:38 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char		ft_is_quote(char c);
 char		ft_is_builtin(t_command *command);
 t_builtin	*ft_new_echo(void);
 t_builtin	*ft_new_change_directory(void);
+t_builtin	*ft_new_pwd(void);
 t_builtin	*ft_new_builtin(char *id);
 void		ft_del_builtin(void *content);
 int			ft_exec_builtin(t_command *command);
