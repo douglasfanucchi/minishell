@@ -1,6 +1,6 @@
 NAME=minishell
 CC=cc
-FLAGS=-c -I includes/ -I lib/libft -g3
+FLAGS=-Wall -Werror -Wextra -c -I includes/ -I lib/libft -g3
 LIBFT_PATH=lib/libft
 LIBFT=$(LIBFT_PATH)/libft.a
 LIBS=-L$(LIBFT_PATH) -lft -lreadline

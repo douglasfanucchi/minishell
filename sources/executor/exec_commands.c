@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:56:49 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 16:42:11 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:51:59 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	dup_file_descriptors(t_command *prev_command, t_command *command,
 {
 	t_list		*node;
 	t_redirect	*redirect;
-	t_list		**redirects;
 
 	if (prev_command)
 	{
@@ -104,7 +103,6 @@ void	ft_exec_commands(t_list **commands)
 	t_command	*command;
 	t_command	*prev_command;
 	t_command	*next_command;
-	int			wstatus;
 
 	node = *commands;
 	while (node)

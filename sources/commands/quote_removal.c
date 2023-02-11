@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_removal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 07:30:28 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/04 07:30:31 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:52:00 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	remove_quotes(char *str, t_token *token)
 
 void	remove_quotes_from_filename(t_command *command, t_token *token)
 {
-	t_list		**argv_variables;
 	t_token		*filename_token;
 	t_variable	*variable;
 	t_list		*node;

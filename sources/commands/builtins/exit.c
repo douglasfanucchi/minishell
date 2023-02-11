@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 18:14:25 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 18:49:55 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:52:11 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static void	ft_exit(int status)
 
 static int	exec(t_command *command)
 {
-	int	status;
-
 	validate_args(command->argv + 1, command);
 	ft_putstr("exit\n");
 	if (command->bash_status == 1)

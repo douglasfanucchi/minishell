@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 11:50:21 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/10 17:12:07 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:51:58 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ void	ft_del_envp(char **envp)
 
 char	*ft_envp_value(char **envp, char *var)
 {
-	char	*result;
-	char	**splitted;
-
 	while (*envp)
 	{
 		if (ft_strncmp(*envp, var, ft_strlen(var) + 1) - '=' == 0)

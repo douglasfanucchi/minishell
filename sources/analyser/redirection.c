@@ -14,10 +14,8 @@
 
 static char	*analyse(t_list *node)
 {
-	t_token	*token;
 	t_token	*next_token;
 
-	token = node->content;
 	next_token = node->next->content;
 	if (ft_is_redirection_token(next_token->original)
 		|| next_token->original[0] == '|' || next_token->original[0] == '\n')
