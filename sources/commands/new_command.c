@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 14:18:11 by dfanucch          #+#    #+#             */
-/*   Updated: 2022/12/27 14:18:12 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:41:35 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*get_pathname(char *bin, char **paths)
 	char	*pathname;
 	char	*slashed_bin;
 
+	if (!paths)
+		return (ft_strdup(""));
 	if (access(bin, F_OK) == 0)
 		return (ft_strdup(bin));
 	slashed_bin = ft_strjoin("/", bin);
