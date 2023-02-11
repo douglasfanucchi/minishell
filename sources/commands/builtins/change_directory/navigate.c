@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:59:17 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 15:29:26 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:06:17 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static char	*join_list(t_list **dirs)
 		free(aux);
 		node = node->next;
 	}
+	if (ft_strncmp(path, "/", 2) != 0)
+		path[ft_strlen(path) - 1] = 0;
 	return (path);
 }
 
