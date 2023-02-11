@@ -14,6 +14,7 @@
 #include "utils/envp.c"
 #include "redirects/new_redirect.c"
 #include "utils/args.c"
+#include "commands/builtins/change_directory/navigate.c"
 
 t_shell	g_minishell;
 
@@ -38,6 +39,7 @@ int	main(int argc, char **argv)
 	MU_RUN_SUITE(test_quote_removal);
 	MU_RUN_SUITE(test_builtins);
 	MU_RUN_SUITE(test_envp_utils);
+	MU_RUN_SUITE(test_navigate);
 	MU_REPORT();
 
 	ft_del_envp(g_minishell.envp);
