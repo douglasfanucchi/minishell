@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:13:56 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 16:35:04 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:42:56 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_executor(char *input)
 	if (!validate_input(input))
 		return ;
 	commands = ft_commands(input);
+	g_minishell.commands = commands;
 	if (!*commands)
 		return ;
 	command = (*commands)->content;
@@ -64,4 +65,5 @@ void	ft_executor(char *input)
 		ft_exec_commands(commands);
 	ft_lstclear(commands, ft_del_command);
 	free(commands);
+	g_minishell.commands = NULL;
 }

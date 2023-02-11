@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 07:58:34 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 17:53:38 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:20:34 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,7 @@ t_builtin	*ft_new_builtin(char *id)
 		return (ft_new_pwd());
 	if (ft_strncmp(id, "unset", ft_strlen("unset") + 1) == 0)
 		return (ft_new_unset());
+	if (ft_strncmp(id, "exit", ft_strlen("exit") + 1) == 0)
+		return (ft_new_exit());
 	return (NULL);
 }

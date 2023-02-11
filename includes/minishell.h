@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:47:05 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 18:02:53 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:42:04 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_shell {
 	char			**envp;
 	unsigned char	status;
+	t_list			**commands;
 }	t_shell;
 
 extern t_shell	g_minishell;
@@ -121,6 +122,7 @@ t_builtin	*ft_new_echo(void);
 t_builtin	*ft_new_change_directory(void);
 t_builtin	*ft_new_pwd(void);
 t_builtin	*ft_new_unset(void);
+t_builtin	*ft_new_exit(void);
 t_builtin	*ft_new_builtin(char *id);
 void		ft_del_builtin(void *content);
 int			ft_exec_builtin(t_command *command);

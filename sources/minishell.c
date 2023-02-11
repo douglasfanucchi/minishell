@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 20:03:00 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/01/17 20:03:00 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:48:24 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **env)
 
 	g_minishell.status = 0;
 	g_minishell.envp = ft_new_envp(env);
+	g_minishell.commands = NULL;
 	line = readline("$> ");
 	while (line)
 	{
