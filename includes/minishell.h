@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:47:05 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 15:38:06 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:34:05 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void		ft_executor(char *input);
 void		ft_exec_commands(t_list **commands);
 void		ft_del_redirect(void *content);
 void		check_command_errors(t_command *command);
-void		print_command_error(t_command *command);
 void		dup_file_descriptors(t_command *prev, t_command *cmd,
 				t_command *next);
 char		**ft_get_paths(char **envp);

@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:13:56 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/10 18:08:20 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:35:04 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_executor(char *input)
 		ft_quote_removal(command);
 		dup_file_descriptors(NULL, command, NULL);
 		ft_exec_builtin(command);
-		print_command_error(command);
 	}
 	else
 		ft_exec_commands(commands);

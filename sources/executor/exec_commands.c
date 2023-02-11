@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:56:49 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/10 18:06:46 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:42:11 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,8 @@ void	print_command_error(t_command *command)
 
 	error = *command->errors;
 	if (!error)
-	{
-		g_minishell.status = 1;
 		return ;
-	}
 	ft_putstr_fd(error->content, 2);
-	g_minishell.status = command->bash_status;
 }
 
 static int	exec_cmd(t_command *prev_command, t_command *command,
@@ -73,11 +69,13 @@ static int	exec_cmd(t_command *prev_command, t_command *command,
 	close(command->pipe[0]);
 	command->pathname = get_pathname(command->filename, command->paths);
 	if (command->bash_status == 0 && !command->is_builtin)
+	{
 		execve(command->pathname, command->argv, command->envp);
+		check_command_errors(command);
+		print_command_error(command);
+	}
 	else if (command->is_builtin)
 		ft_exec_builtin(command);
-	check_command_errors(command);
-	print_command_error(command);
 	return (0);
 }
 
