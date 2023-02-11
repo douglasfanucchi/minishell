@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:47:05 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 17:25:38 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:02:53 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void		ft_remove_arg(char **argv, char *arg);
 void		ft_set_command_redirects(t_command *command);
 void		ft_expand_args(t_command *command);
 char		ft_is_variable(char *str);
+char		ft_is_valid_variable(char *str);
 char		ft_is_valid_variable_char(char c);
 t_variable	*ft_new_variable(size_t position, char *value);
 void		ft_del_variable(void *content);
@@ -119,6 +120,7 @@ char		ft_is_builtin(t_command *command);
 t_builtin	*ft_new_echo(void);
 t_builtin	*ft_new_change_directory(void);
 t_builtin	*ft_new_pwd(void);
+t_builtin	*ft_new_unset(void);
 t_builtin	*ft_new_builtin(char *id);
 void		ft_del_builtin(void *content);
 int			ft_exec_builtin(t_command *command);
