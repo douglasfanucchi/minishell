@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 12:15:33 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 16:10:44 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:19:05 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static int	exec(t_command *command)
 	if (!is_valid(command->argv + 1))
 	{
 		command->bash_status = 1;
-		ft_lstadd_back(command->errors,
-			ft_lstnew(ft_strdup("cd: too many arguments\n")));
+		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (-1);
 	}
 	dir = get_dir(command);
 	old_dir = getcwd(NULL, 0);
 	if (chdir(dir) != 0)
 	{
+		command->bash_status = 1;
 		ft_putstr_fd("cd: ", 2);
 		perror(dir);
 		free(old_dir);
