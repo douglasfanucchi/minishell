@@ -12,7 +12,8 @@ FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c \
 	  utils/args.c commands/set_redirects.c commands/expansion.c utils/variables.c variables/variable.c \
 	  commands/quote_removal.c executor/executor.c executor/exec_commands.c commands/check_command_errors.c \
 	  utils/path.c utils/envp.c commands/commands.c utils/quote.c commands/builtins/builtins.c \
-	  executor/exec_builtin.c commands/builtins/echo.c commands/builtins/change_directory.c
+	  executor/exec_builtin.c commands/builtins/echo.c commands/builtins/change_directory/change_directory.c \
+	  commands/builtins/change_directory/navigate.c
 SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
 OBJS := $(OBJS:tokens/%=%)
@@ -23,6 +24,7 @@ OBJS := $(OBJS:commands/%=%)
 OBJS := $(OBJS:variables/%=%)
 OBJS := $(OBJS:executor/%=%)
 OBJS := $(OBJS:builtins/%=%)
+OBJS := $(OBJS:change_directory/%=%)
 
 all: | libft
 

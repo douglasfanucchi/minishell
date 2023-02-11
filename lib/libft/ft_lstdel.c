@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 13:38:28 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/01/31 13:38:28 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:39:20 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ static void	*ft_recursive_del(t_list *node)
 
 void	ft_lstdel(t_list *node, void (*del)(void*))
 {
+	if (!node)
+		return ;
 	del(ft_recursive_del(node));
 }

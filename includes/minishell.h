@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:47:05 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/10 18:10:33 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:38:06 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ int			ft_exec_builtin(t_command *command);
 char		*ft_envp_value(char **envp, char *var);
 int			ft_envp_update_var(char **envp, char *var, char *value);
 int			ft_envp_remove(char **envp, char *var);
+char		*ft_path_after_navigate(t_list **dirs, char *cmd_navigation);
 
 #endif
