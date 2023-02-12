@@ -124,11 +124,13 @@ t_builtin	*ft_new_pwd(void);
 t_builtin	*ft_new_unset(void);
 t_builtin	*ft_new_exit(void);
 t_builtin	*ft_new_builtin(char *id);
+t_builtin	*ft_new_export(void);
 void		ft_del_builtin(void *content);
 int			ft_exec_builtin(t_command *command);
 char		*ft_envp_value(char **envp, char *var);
 int			ft_envp_update_var(char **envp, char *var, char *value);
 int			ft_envp_remove(char **envp, char *var);
+void		ft_envp_add(char ***envp, char *str);
 char		*ft_path_after_navigate(t_list **dirs, char *cmd_navigation);
 
 #endif

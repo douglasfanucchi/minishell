@@ -11,10 +11,10 @@ FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c \
       commands/new_command.c redirects/redirect_file_descriptor.c redirects/new_redirect.c \
 	  utils/args.c commands/set_redirects.c commands/expansion.c utils/variables.c variables/variable.c \
 	  commands/quote_removal.c executor/executor.c executor/exec_commands.c commands/check_command_errors.c \
-	  utils/path.c utils/envp.c commands/commands.c utils/quote.c commands/builtins/builtins.c \
+	  utils/path.c utils/envp/envp.c commands/commands.c utils/quote.c commands/builtins/builtins.c \
 	  executor/exec_builtin.c commands/builtins/echo.c commands/builtins/change_directory/change_directory.c \
 	  commands/builtins/change_directory/navigate.c commands/builtins/pwd.c commands/builtins/unset.c \
-	  commands/builtins/exit.c
+	  commands/builtins/exit.c commands/builtins/export.c utils/envp/envp_add.c
 SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
 OBJS := $(OBJS:tokens/%=%)
@@ -26,6 +26,7 @@ OBJS := $(OBJS:variables/%=%)
 OBJS := $(OBJS:executor/%=%)
 OBJS := $(OBJS:builtins/%=%)
 OBJS := $(OBJS:change_directory/%=%)
+OBJS := $(OBJS:envp/%=%)
 
 all: | libft
 
