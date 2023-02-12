@@ -47,9 +47,12 @@ void	ft_del_envp(char **envp)
 
 char	*ft_envp_value(char **envp, char *var)
 {
+	int	diff;
+
 	while (*envp)
 	{
-		if (ft_strncmp(*envp, var, ft_strlen(var) + 1) - '=' == 0)
+		diff = ft_strncmp(*envp, var, ft_strlen(var) + 1);
+		if (diff == 0 || diff - '=' == 0)
 			return (ft_strdup(*envp + ft_strlen(var) + 1));
 		envp++;
 	}
@@ -59,10 +62,12 @@ char	*ft_envp_value(char **envp, char *var)
 int	ft_envp_update_var(char **envp, char *var, char *value)
 {
 	char	*str;
+	int		diff;
 
 	while (*envp)
 	{
-		if (ft_strncmp(*envp, var, ft_strlen(var) + 1) - '=' != 0)
+		diff = ft_strncmp(*envp, var, ft_strlen(var) + 1);
+		if (diff != 0 && diff - '=' != 0)
 		{
 			envp++;
 			continue ;
@@ -83,10 +88,12 @@ int	ft_envp_update_var(char **envp, char *var, char *value)
 int	ft_envp_remove(char **envp, char *var)
 {
 	size_t	len;
+	int		diff;
 
 	while (*envp)
 	{
-		if (ft_strncmp(*envp, var, ft_strlen(var) + 1) - '=' != 0)
+		diff = ft_strncmp(*envp, var, ft_strlen(var) + 1);
+		if (diff != 0 && diff - '=' != 0)
 		{
 			envp++;
 			continue ;
