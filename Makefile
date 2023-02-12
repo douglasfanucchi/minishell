@@ -14,7 +14,7 @@ FILES=minishell.c tokens/tokenizer.c tokens/token.c tokens/redirect.c \
 	  utils/path.c utils/envp/envp.c commands/commands.c utils/quote.c commands/builtins/builtins.c \
 	  executor/exec_builtin.c commands/builtins/echo.c commands/builtins/change_directory/change_directory.c \
 	  commands/builtins/change_directory/navigate.c commands/builtins/pwd.c commands/builtins/unset.c \
-	  commands/builtins/exit.c commands/builtins/export.c utils/envp/envp_add.c
+	  commands/builtins/exit.c commands/builtins/export.c utils/envp/envp_add.c commands/builtins/env.c
 SRC := $(addprefix sources/, $(FILES))
 OBJS := $(FILES:.c=.o)
 OBJS := $(OBJS:tokens/%=%)

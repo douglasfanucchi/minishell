@@ -67,5 +67,7 @@ t_builtin	*ft_new_builtin(char *id)
 		return (ft_new_exit());
 	if (ft_strncmp(id, "export", ft_strlen("export") + 1) == 0)
 		return (ft_new_export());
+	if (ft_strncmp(id, "env", ft_strlen("env") + 1) == 0)
+		return (ft_new_env());
 	return (NULL);
 }

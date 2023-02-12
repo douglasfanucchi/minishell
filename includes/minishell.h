@@ -123,6 +123,7 @@ t_builtin	*ft_new_change_directory(void);
 t_builtin	*ft_new_pwd(void);
 t_builtin	*ft_new_unset(void);
 t_builtin	*ft_new_exit(void);
+t_builtin	*ft_new_env(void);
 t_builtin	*ft_new_builtin(char *id);
 t_builtin	*ft_new_export(void);
 void		ft_del_builtin(void *content);
@@ -131,6 +132,8 @@ char		*ft_envp_value(char **envp, char *var);
 int			ft_envp_update_var(char **envp, char *var, char *value);
 int			ft_envp_remove(char **envp, char *var);
 void		ft_envp_add(char ***envp, char *str);
+char		*ft_get_var_from_envp_str(char *str);
+char		*ft_get_value_from_envp_str(char *str);
 char		*ft_path_after_navigate(t_list **dirs, char *cmd_navigation);
 
 #endif

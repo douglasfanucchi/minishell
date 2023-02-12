@@ -12,7 +12,7 @@
 
 #include <minishell.h>
 
-static char	*get_var(char *str)
+char	*ft_get_var_from_envp_str(char *str)
 {
 	size_t	size;
 
@@ -22,7 +22,7 @@ static char	*get_var(char *str)
 	return (ft_substr(str, 0, size));
 }
 
-static char	*get_value(char *str)
+char	*ft_get_value_from_envp_str(char *str)
 {
 	char	*end_var;
 
@@ -50,8 +50,8 @@ void	ft_envp_add(char ***envp, char *str)
 	char	*value;
 	char	**new_envp;
 
-	var = get_var(str);
-	value = get_value(str);
+	var = ft_get_var_from_envp_str(str);
+	value = ft_get_value_from_envp_str(str);
 	existing = ft_envp_value(*envp, var);
 	if (existing)
 	{
