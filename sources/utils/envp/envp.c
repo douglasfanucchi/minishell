@@ -64,6 +64,8 @@ int	ft_envp_update_var(char **envp, char *var, char *value)
 	char	*str;
 	int		diff;
 
+	if (!value || !*value)
+		return (1);
 	while (*envp)
 	{
 		diff = ft_strncmp(*envp, var, ft_strlen(var) + 1);
