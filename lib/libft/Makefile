@@ -73,9 +73,9 @@ $(OBJECTS): $(SRCS)
 	$(CC) $(CCFLAGS) -c $(SRCS)
 
 clean:
-	rm -f $(OBJECTS) $(BONUS_OBJECTS)
+	@rm -f $(OBJECTS) $(BONUS_OBJECTS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
