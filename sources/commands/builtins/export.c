@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:19:22 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 22:19:23 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:25:22 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	add_variable(char *str)
 	char	*var_end;
 
 	var = ft_strjoin("$", str);
-	if (!ft_is_variable(var))
+	if (ft_strncmp(var, "$=", 3) == 0 || !ft_is_variable(var))
 	{
 		print_invalid_identifier(str);
 		free(var);
