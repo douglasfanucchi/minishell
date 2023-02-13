@@ -17,10 +17,10 @@ char	*get_pathname(char *bin, char **paths)
 	char	*pathname;
 	char	*slashed_bin;
 
-	if (!paths)
-		return (ft_strdup(""));
 	if (access(bin, F_OK) == 0)
 		return (ft_strdup(bin));
+	if (!paths)
+		return (ft_strdup(""));
 	slashed_bin = ft_strjoin("/", bin);
 	while (*paths)
 	{
