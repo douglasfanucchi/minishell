@@ -6,29 +6,29 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 08:23:53 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/13 17:17:35 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:05:17 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*ft_search_pipe(char *input)
+char	*ft_search_pipe(char *input)
 {
 	char	quoted;
 
 	quoted = 0;
 	while (*input)
 	{
-		if (ft_is_quote(*input))
+		if (quoted && quoted == *input)
 		{
-			quoted = *input;
+			quoted = 0;
 			input++;
 			continue ;
 		}
 		if (*input == '|' && !quoted)
 			return (input);
-		if (quoted && quoted == *input)
-			quoted = 0;
+		if (ft_is_quote(*input))
+			quoted = *input;
 		input++;
 	}
 	return (NULL);

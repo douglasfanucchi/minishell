@@ -22,7 +22,7 @@ MU_TEST(test_navigate_to_bin_from_root) {
 	char	*result;
 
 	result = ft_path_after_navigate(dirs, "bin");
-	mu_assert_string_eq("/bin/", result);
+	mu_assert_string_eq("/bin", result);
 	free(result);
 }
 
@@ -44,7 +44,7 @@ MU_TEST(test_navigate_should_go_to_absolute_path) {
 	ft_lstadd_back(dirs, ft_lstnew(ft_strdup("dfanucch")));
 
 	result = ft_path_after_navigate(dirs, "/usr/bin");
-	mu_assert_string_eq("/usr/bin/", result);
+	mu_assert_string_eq("/usr/bin", result);
 	free(result);
 
 	dirs = ft_newlist();
@@ -53,7 +53,7 @@ MU_TEST(test_navigate_should_go_to_absolute_path) {
 	ft_lstadd_back(dirs, ft_lstnew(ft_strdup("dfanucch")));
 
 	result = ft_path_after_navigate(dirs, "/../../bin");
-	mu_assert_string_eq("/bin/", result);
+	mu_assert_string_eq("/bin", result);
 	free(result);
 }
 
