@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:42:28 by coder             #+#    #+#             */
-/*   Updated: 2023/02/11 18:07:18 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:22:36 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,29 @@ char	ft_is_valid_variable(char *var)
 		var++;
 	}
 	return (1);
+}
+
+void	ft_print_envp_var(char *envp_str)
+{
+	char	*var;
+
+	var = ft_get_var_from_envp_str(envp_str);
+	ft_putstr(var);
+	free(var);
+}
+
+void	ft_print_envp_var_value(char *envp_str)
+{
+	char	*value;
+
+	value = ft_get_value_from_envp_str(envp_str);
+	if (value && *value)
+	{
+		ft_putstr("=");
+		ft_putstr("\"");
+	}
+	ft_putstr(value);
+	if (value && *value)
+		ft_putstr("\"");
+	free(value);
 }

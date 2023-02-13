@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:47:05 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/13 16:37:44 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:19:27 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,9 @@ void		ft_envp_add(char ***envp, char *str);
 char		*ft_get_var_from_envp_str(char *str);
 char		*ft_get_value_from_envp_str(char *str);
 char		*ft_path_after_navigate(t_list **dirs, char *cmd_navigation);
+char		*ft_get_var_from_envp_str(char *str);
+char		*ft_get_value_from_envp_str(char *str);
+void		ft_print_envp_var_value(char *envp_str);
+void		ft_print_envp_var(char *envp_str);
 
 #endif

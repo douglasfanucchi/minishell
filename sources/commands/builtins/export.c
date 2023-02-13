@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:19:22 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/13 17:25:22 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:21:51 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static int	exec(t_command *command)
 		while (*envp)
 		{
 			ft_putstr("declare -x ");
-			ft_putstr(*envp);
+			ft_print_envp_var(*envp);
+			ft_print_envp_var_value(*envp);
 			ft_putstr("\n");
 			envp++;
 		}
