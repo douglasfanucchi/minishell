@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:56:49 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 18:51:59 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:38:15 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ static int	exec_cmd(t_command *prev_command, t_command *command,
 		t_command *next_command)
 {
 	pipe(command->pipe);
-	ft_set_command_redirects(command);
 	command->pid = fork();
 	if (command->pid != 0)
 	{
+		g_minishell.waiting = 1;
 		close(command->pipe[1]);
 		return (1);
 	}
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	ft_expand_args(command);
 	ft_quote_removal(command);
 	dup_file_descriptors(prev_command, command, next_command);
@@ -95,6 +97,7 @@ static void	set_status_and_wait_pid(pid_t pid, t_list *node)
 		wait(NULL);
 		node = node->next;
 	}
+	g_minishell.waiting = 0;
 }
 
 void	ft_exec_commands(t_list **commands)

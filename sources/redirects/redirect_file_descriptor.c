@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_file.c                                        :+:      :+:    :+:   */
+/*   redirect_file_descriptor.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 19:11:44 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/01/28 19:11:44 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:41:41 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	create_here_doc(char *limiter)
+static void	sigint_exit_here_doc(int signal)
+{
+	if (signal != SIGINT)
+		return ;
+	close(g_minishell.here_doc[1]);
+	ft_child_exit_shell(g_minishell.commands, (char) 130);
+}
+
+static void	create_here_doc(char *limiter)
 {
 	char	*next_line;
-	int		fd[2];
 
-	pipe(fd);
+	close(g_minishell.here_doc[0]);
+	signal(SIGINT, sigint_exit_here_doc);
 	write(1, "heredoc> ", 9);
 	next_line = get_next_line(0);
 	while (next_line)
@@ -29,15 +37,28 @@ static int	create_here_doc(char *limiter)
 			free(next_line);
 			break ;
 		}
-		write(fd[1], next_line, ft_strlen(next_line));
+		write(g_minishell.here_doc[1], next_line, ft_strlen(next_line));
 		if (*next_line != '\n')
-			write(fd[1], "\n", 1);
+			write(g_minishell.here_doc[1], "\n", 1);
 		free(next_line);
 		write(1, "heredoc> ", 9);
 		next_line = get_next_line(0);
 	}
-	close(fd[1]);
-	return (fd[0]);
+	close(g_minishell.here_doc[1]);
+	ft_child_exit_shell(g_minishell.commands, 0);
+}
+
+static int	get_here_doc(char *limiter)
+{
+	if (g_minishell.cancel_cmd)
+		return (-1);
+	pipe(g_minishell.here_doc);
+	g_minishell.waiting = 1;
+	if (fork() == 0)
+		create_here_doc(limiter);
+	close(g_minishell.here_doc[1]);
+	wait(NULL);
+	return (g_minishell.here_doc[0]);
 }
 
 int	ft_get_redirect_file_descriptor(t_list *node)
@@ -62,5 +83,5 @@ int	ft_get_redirect_file_descriptor(t_list *node)
 		return (open(filename, O_CREAT | O_APPEND | O_WRONLY, 0644));
 	if (ft_strncmp(redirect, "<", 2) == 0)
 		return (open(filename, O_RDONLY));
-	return (create_here_doc(token->original));
+	return (get_here_doc(token->original));
 }

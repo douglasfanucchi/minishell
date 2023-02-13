@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 13:47:05 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 18:42:04 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:37:44 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 typedef struct s_shell {
 	char			**envp;
 	unsigned char	status;
 	t_list			**commands;
+	char			cancel_cmd;
+	int				here_doc[2];
+	char			waiting;
 }	t_shell;
 
 extern t_shell	g_minishell;

@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:13:56 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/11 18:42:56 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:02:36 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,29 @@ static void	reset_fds(char *tty)
 	close(fd);
 }
 
+static void	ft_set_all_redirects(void)
+{
+	t_list		*node;
+	t_command	*command;
+
+	node = *g_minishell.commands;
+	while (node)
+	{
+		command = node->content;
+		ft_set_command_redirects(command);
+		node = node->next;
+	}
+}
+
+static void	exec_on_main_process(t_command *command, char *tty)
+{
+	ft_expand_args(command);
+	ft_quote_removal(command);
+	dup_file_descriptors(NULL, command, NULL);
+	ft_exec_builtin(command);
+	reset_fds(tty);
+}
+
 void	ft_executor(char *input)
 {
 	t_command	*command;
@@ -66,15 +89,15 @@ void	ft_executor(char *input)
 	if (!*g_minishell.commands)
 		return ;
 	command = (*g_minishell.commands)->content;
-	if (ft_lstsize(*g_minishell.commands) == 1 && command->is_builtin)
+	ft_set_all_redirects();
+	if (g_minishell.cancel_cmd)
 	{
-		ft_set_command_redirects(command);
-		ft_expand_args(command);
-		ft_quote_removal(command);
-		dup_file_descriptors(NULL, command, NULL);
-		ft_exec_builtin(command);
-		reset_fds(tty);
+		ft_lstclear(g_minishell.commands, ft_del_command);
+		free(g_minishell.commands);
+		return ;
 	}
+	if (ft_lstsize(*g_minishell.commands) == 1 && command->is_builtin)
+		exec_on_main_process(command, tty);
 	else
 		ft_exec_commands(g_minishell.commands);
 	ft_lstclear(g_minishell.commands, ft_del_command);
