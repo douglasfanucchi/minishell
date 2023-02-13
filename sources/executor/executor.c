@@ -41,29 +41,43 @@ static char	validate_input(char *input)
 	return (1);
 }
 
+static void	reset_fds(char *tty)
+{
+	int		fd;
+
+	if (!tty)
+		return ;
+	fd = open(tty, O_RDWR);
+	dup2(fd, 0);
+	dup2(fd, 1);
+	dup2(fd, 2);
+	close(fd);
+}
+
 void	ft_executor(char *input)
 {
-	t_list		**commands;
 	t_command	*command;
+	char		*tty;
 
+	tty = ttyname(0);
 	if (!validate_input(input))
 		return ;
-	commands = ft_commands(input);
-	g_minishell.commands = commands;
-	if (!*commands)
+	g_minishell.commands = ft_commands(input);
+	if (!*g_minishell.commands)
 		return ;
-	command = (*commands)->content;
-	if (ft_lstsize(*commands) == 1 && command->is_builtin)
+	command = (*g_minishell.commands)->content;
+	if (ft_lstsize(*g_minishell.commands) == 1 && command->is_builtin)
 	{
 		ft_set_command_redirects(command);
 		ft_expand_args(command);
 		ft_quote_removal(command);
 		dup_file_descriptors(NULL, command, NULL);
 		ft_exec_builtin(command);
+		reset_fds(tty);
 	}
 	else
-		ft_exec_commands(commands);
-	ft_lstclear(commands, ft_del_command);
-	free(commands);
+		ft_exec_commands(g_minishell.commands);
+	ft_lstclear(g_minishell.commands, ft_del_command);
+	free(g_minishell.commands);
 	g_minishell.commands = NULL;
 }
