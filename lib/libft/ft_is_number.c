@@ -14,6 +14,8 @@
 
 char	ft_is_number(char *str)
 {
+	if (*str == '+')
+		str++;
 	if (*str == '-' && str[1] == '\0')
 		return (0);
 	if (*str != '-' && !ft_isdigit(*str))
