@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 19:11:44 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/13 16:41:41 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:49:16 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,33 @@ static int	get_here_doc(char *limiter)
 	return (g_minishell.here_doc[0]);
 }
 
+static void	remove_quotes(char *str)
+{
+	char	quoted;
+	size_t	i;
+
+	quoted = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_is_quote(str[i]) || (quoted && quoted != str[i]))
+		{
+			i++;
+			continue ;
+		}
+		if (!quoted || quoted == str[i])
+		{
+			if (!quoted)
+				quoted = str[i];
+			else
+				quoted = 0;
+			ft_memmove(str + i, str + i + 1, ft_strlen(str + i));
+			continue ;
+		}
+		i++;
+	}
+}
+
 int	ft_get_redirect_file_descriptor(t_list *node)
 {
 	t_token	*token;
@@ -75,6 +102,7 @@ int	ft_get_redirect_file_descriptor(t_list *node)
 		redirect++;
 	token = node->next->content;
 	filename = token->original;
+	remove_quotes(filename);
 	if (*filename == '\n')
 		return (-1);
 	if (ft_strncmp(redirect, ">", 2) == 0)

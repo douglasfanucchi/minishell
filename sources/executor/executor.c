@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:13:56 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/13 17:02:36 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/14 01:03:25 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,18 @@ static void	ft_set_all_redirects(void)
 
 static void	exec_on_main_process(t_command *command, char *tty)
 {
+	t_list	*error;
+
 	ft_expand_args(command);
 	ft_quote_removal(command);
 	dup_file_descriptors(NULL, command, NULL);
-	ft_exec_builtin(command);
+	if (command->bash_status == 0)
+		ft_exec_builtin(command);
 	reset_fds(tty);
+	error = *command->errors;
+	if (error)
+		ft_putstr_fd(error->content, 2);
+	g_minishell.status = command->bash_status;
 }
 
 void	ft_executor(char *input)

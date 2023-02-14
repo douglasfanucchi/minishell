@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect_command.c                                 :+:      :+:    :+:   */
+/*   set_redirects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:50:04 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/01/31 09:50:04 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:31:48 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static char	validate_redirect(t_command *command, t_redirect *redirect,
 	ft_lstadd_back(command->errors, ft_lstnew(
 			ft_strjoin(token->original, error_msg)));
 	command->bash_status = 1;
-	ft_del_redirect((void *)redirect);
 	return (0);
 }
 
@@ -62,8 +61,7 @@ void	ft_set_command_redirects(t_command *command)
 		}
 		redirect = ft_new_redirect(node);
 		redirect->old_fd = ft_get_redirect_file_descriptor(node);
-		if (!validate_redirect(command, redirect, node))
-			break ;
+		validate_redirect(command, redirect, node);
 		ft_lstadd_back(command->redirects, ft_lstnew(redirect));
 		del_redirection_nodes(node, argv);
 	}

@@ -6,7 +6,7 @@
 /*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:56:49 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/02/13 16:38:15 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:54:26 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ static int	exec_cmd(t_command *prev_command, t_command *command,
 	{
 		execve(command->pathname, command->argv, command->envp);
 		check_command_errors(command);
-		print_command_error(command);
 	}
-	else if (command->is_builtin)
+	else if (command->bash_status == 0 && command->is_builtin)
 		ft_exec_builtin(command);
+	print_command_error(command);
 	return (0);
 }
 
