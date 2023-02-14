@@ -28,4 +28,5 @@ void	check_command_errors(t_command *command)
 		command->bash_status = 126;
 		return ;
 	}
+	command->bash_status = 1;
 }
