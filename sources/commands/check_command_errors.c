@@ -14,17 +14,27 @@
 
 void	check_command_errors(t_command *command)
 {
-	if (!*command->pathname && !command->is_builtin)
+	struct stat	file_status;
+
+	if (!*command->pathname)
 	{
 		ft_lstadd_back(command->errors, ft_lstnew(
 				ft_strjoin(command->filename, ": command not found\n")));
 		command->bash_status = 127;
 		return ;
 	}
-	if (!command->is_builtin && access(command->pathname, X_OK) != 0)
+	if (access(command->pathname, X_OK) != 0)
 	{
 		ft_lstadd_back(command->errors, ft_lstnew(
 				ft_strjoin(command->filename, ": Permission denied\n")));
+		command->bash_status = 126;
+		return ;
+	}
+	stat(command->pathname, &file_status);
+	if (S_ISDIR(file_status.st_mode))
+	{
+		ft_lstadd_back(command->errors, ft_lstnew(
+				ft_strjoin(command->filename, ": Is a directory\n")));
 		command->bash_status = 126;
 		return ;
 	}
