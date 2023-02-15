@@ -43,6 +43,11 @@ t_list	**ft_commands(char *input)
 	commands = ft_newlist();
 	while (*input)
 	{
+		if (ft_isspace(*input))
+		{
+			input++;
+			continue ;
+		}
 		end_input = ft_search_pipe(input);
 		if (!end_input)
 			end_input = input + ft_strlen(input);
