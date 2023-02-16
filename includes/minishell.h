@@ -143,5 +143,6 @@ char		*ft_get_var_from_envp_str(char *str);
 char		*ft_get_value_from_envp_str(char *str);
 void		ft_print_envp_var_value(char *envp_str);
 void		ft_print_envp_var(char *envp_str);
+char		*ft_search_metacharacter(char *input, char meta_char);
 
 #endif

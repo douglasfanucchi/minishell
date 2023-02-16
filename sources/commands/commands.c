@@ -12,28 +12,6 @@
 
 #include <minishell.h>
 
-char	*ft_search_pipe(char *input)
-{
-	char	quoted;
-
-	quoted = 0;
-	while (*input)
-	{
-		if (quoted && quoted == *input)
-		{
-			quoted = 0;
-			input++;
-			continue ;
-		}
-		if (*input == '|' && !quoted)
-			return (input);
-		if (ft_is_quote(*input))
-			quoted = *input;
-		input++;
-	}
-	return (NULL);
-}
-
 t_list	**ft_commands(char *input)
 {
 	char	*end_input;
@@ -48,7 +26,7 @@ t_list	**ft_commands(char *input)
 			input++;
 			continue ;
 		}
-		end_input = ft_search_pipe(input);
+		end_input = ft_search_metacharacter(input, '|');
 		if (!end_input)
 			end_input = input + ft_strlen(input);
 		input_substr = ft_substr(input, 0, end_input - input);

@@ -14,14 +14,14 @@
 
 char	ft_is_redirection_token(char *token)
 {
-	size_t	i;
+	char	*redirect;
 
-	if (token[0] == '\'' || token[0] == '"')
+	redirect = ft_search_metacharacter(token, '<');
+	if (!redirect)
+		redirect = ft_search_metacharacter(token, '>');
+	if (!redirect)
 		return (0);
-	i = 0;
-	while (token[i] && token[i] != '<' && token[i] != '>')
-		i++;
-	return (ft_strlen(token) != i);
+	return (1);
 }
 
 char	ft_should_append_redirect_token(char *str, char delimiter)
