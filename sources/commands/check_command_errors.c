@@ -31,7 +31,7 @@ void	check_command_errors(t_command *command)
 		return ;
 	}
 	stat(command->pathname, &file_status);
-	if (S_ISDIR(file_status.st_mode))
+	if (*command->filename && S_ISDIR(file_status.st_mode))
 	{
 		ft_lstadd_back(command->errors, ft_lstnew(
 				ft_strjoin(command->filename, ": Is a directory\n")));
